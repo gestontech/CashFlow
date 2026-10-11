@@ -361,6 +361,19 @@ function removeAvatar(avatar) {
   }
 }
 
+function validDate(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    return false;
+  }
+
+  const date = new Date(`${value}T00:00:00Z`);
+
+  return (
+    !Number.isNaN(date.getTime()) &&
+    date.toISOString().slice(0, 10) === value
+  );
+}
+
 /* =========================================================
    CONFIG
 ========================================================= */
@@ -369,7 +382,8 @@ app.get("/api/config", (req, res) => {
   res.json({
     appName: APP_NAME,
     supportEmail: SUPPORT_EMAIL,
-    supportWhatsapp: SUPPORT_WHATSAPP
+    supportWhatsapp: SUPPORT_WHATSAPP,
+    adminEmail: ADMIN_EMAIL
   });
 });
 
@@ -960,6 +974,37 @@ app.put(
       });
     }
 
+    const name = String(
+      req.body.name || ""
+    ).trim();
+
+    const price = Number(
+      req.body.price
+    );
+
+    const stock = Number(
+      req.body.stock
+    );
+
+    const minStock = Number(
+      req.body.min_stock
+    );
+
+    if (
+      !name ||
+      !Number.isFinite(price) ||
+      price < 0 ||
+      !Number.isInteger(stock) ||
+      stock < 0 ||
+      !Number.isInteger(minStock) ||
+      minStock < 0
+    ) {
+      return res.status(400).json({
+        error:
+          "Données produit invalides."
+      });
+    }
+
     db.prepare(`
       UPDATE products
       SET
@@ -970,21 +1015,13 @@ app.put(
         min_stock = ?
       WHERE id = ?
     `).run(
-      String(
-        req.body.name || ""
-      ).trim(),
+      name,
       String(
         req.body.sku || ""
       ).trim(),
-      Number(
-        req.body.price || 0
-      ),
-      Number(
-        req.body.stock || 0
-      ),
-      Number(
-        req.body.min_stock || 0
-      ),
+      price,
+      stock,
+      minStock,
       product.id
     );
 
@@ -1065,10 +1102,28 @@ app.post(
       req.body.name || ""
     ).trim();
 
-    if (!name) {
+    const phone = String(
+      req.body.phone || ""
+    ).trim();
+
+    const email = String(
+      req.body.email || ""
+    ).trim();
+
+    if (name.length < 2) {
       return res.status(400).json({
         error:
           "Le nom du client est requis."
+      });
+    }
+
+    if (
+      email &&
+      !validEmail(email)
+    ) {
+      return res.status(400).json({
+        error:
+          "Adresse e-mail du client invalide."
       });
     }
 
@@ -1086,12 +1141,8 @@ app.post(
       .run(
         req.user.id,
         name,
-        String(
-          req.body.phone || ""
-        ).trim(),
-        String(
-          req.body.email || ""
-        ).trim()
+        phone,
+        email
       );
 
     res.json(
@@ -1100,6 +1151,88 @@ app.post(
           "SELECT * FROM customers WHERE id = ?"
         )
         .get(result.lastInsertRowid)
+    );
+  }
+);
+
+/* =========================================================
+   CUSTOMER - UPDATE
+========================================================= */
+
+app.put(
+  "/api/customers/:id",
+  requireAuth,
+  (req, res) => {
+    const customer = db
+      .prepare(`
+        SELECT *
+        FROM customers
+        WHERE id = ?
+        AND user_id = ?
+      `)
+      .get(
+        req.params.id,
+        req.user.id
+      );
+
+    if (!customer) {
+      return res.status(404).json({
+        error:
+          "Client introuvable."
+      });
+    }
+
+    const name = String(
+      req.body.name || ""
+    ).trim();
+
+    const phone = String(
+      req.body.phone || ""
+    ).trim();
+
+    const email = String(
+      req.body.email || ""
+    ).trim();
+
+    if (name.length < 2) {
+      return res.status(400).json({
+        error:
+          "Le nom du client est requis."
+      });
+    }
+
+    if (
+      email &&
+      !validEmail(email)
+    ) {
+      return res.status(400).json({
+        error:
+          "Adresse e-mail du client invalide."
+      });
+    }
+
+    db.prepare(`
+      UPDATE customers
+      SET
+        name = ?,
+        phone = ?,
+        email = ?
+      WHERE id = ?
+      AND user_id = ?
+    `).run(
+      name,
+      phone,
+      email,
+      customer.id,
+      req.user.id
+    );
+
+    res.json(
+      db
+        .prepare(
+          "SELECT * FROM customers WHERE id = ?"
+        )
+        .get(customer.id)
     );
   }
 );
@@ -1265,6 +1398,40 @@ app.post(
             });
           }
 
+          let customerId = null;
+
+          if (
+            req.body.customer_id !==
+              undefined &&
+            req.body.customer_id !==
+              null &&
+            String(
+              req.body.customer_id
+            ).trim() !== ""
+          ) {
+            const customer = db
+              .prepare(`
+                SELECT id
+                FROM customers
+                WHERE id = ?
+                AND user_id = ?
+              `)
+              .get(
+                Number(
+                  req.body.customer_id
+                ),
+                req.user.id
+              );
+
+            if (!customer) {
+              throw new Error(
+                "Client invalide."
+              );
+            }
+
+            customerId = customer.id;
+          }
+
           const sale = db
             .prepare(`
               INSERT INTO sales
@@ -1279,11 +1446,7 @@ app.post(
             `)
             .run(
               req.user.id,
-              req.body.customer_id
-                ? Number(
-                    req.body.customer_id
-                  )
-                : null,
+              customerId,
               total,
               String(
                 req.body.payment_method ||
@@ -1394,6 +1557,41 @@ app.post(
       });
     }
 
+    let customerId = null;
+
+    if (
+      req.body.customer_id !==
+        undefined &&
+      req.body.customer_id !==
+        null &&
+      String(
+        req.body.customer_id
+      ).trim() !== ""
+    ) {
+      const customer = db
+        .prepare(`
+          SELECT id
+          FROM customers
+          WHERE id = ?
+          AND user_id = ?
+        `)
+        .get(
+          Number(
+            req.body.customer_id
+          ),
+          req.user.id
+        );
+
+      if (!customer) {
+        return res.status(400).json({
+          error:
+            "Client invalide."
+        });
+      }
+
+      customerId = customer.id;
+    }
+
     const result = db
       .prepare(`
         INSERT INTO debts
@@ -1407,11 +1605,7 @@ app.post(
       `)
       .run(
         req.user.id,
-        req.body.customer_id
-          ? Number(
-              req.body.customer_id
-            )
-          : null,
+        customerId,
         amount,
         String(
           req.body.note || ""
@@ -1421,6 +1615,49 @@ app.post(
     res.json({
       ok: true,
       id: result.lastInsertRowid
+    });
+  }
+);
+
+app.get(
+  "/api/debts/:id/payments",
+  requireAuth,
+  (req, res) => {
+    const debt = db
+      .prepare(`
+        SELECT id
+        FROM debts
+        WHERE id = ?
+        AND user_id = ?
+      `)
+      .get(
+        req.params.id,
+        req.user.id
+      );
+
+    if (!debt) {
+      return res.status(404).json({
+        error:
+          "Dette introuvable."
+      });
+    }
+
+    const payments = db
+      .prepare(`
+        SELECT
+          id,
+          debt_id,
+          amount,
+          created_at
+        FROM debt_payments
+        WHERE debt_id = ?
+        ORDER BY id DESC
+      `)
+      .all(debt.id);
+
+    res.json({
+      debt_id: debt.id,
+      payments
     });
   }
 );
@@ -1456,6 +1693,7 @@ app.post(
       debt.amount - debt.paid;
 
     if (
+      !Number.isFinite(amount) ||
       amount <= 0 ||
       amount > remaining
     ) {
@@ -1499,8 +1737,21 @@ app.post(
 
     transaction();
 
+    const updatedDebt = db
+      .prepare(`
+        SELECT
+          d.*,
+          (
+            d.amount - d.paid
+          ) AS remaining
+        FROM debts d
+        WHERE d.id = ?
+      `)
+      .get(debt.id);
+
     res.json({
-      ok: true
+      ok: true,
+      debt: updatedDebt
     });
   }
 );
@@ -1513,6 +1764,43 @@ app.get(
   "/api/reports",
   requireAuth,
   (req, res) => {
+    const today = new Date();
+
+    const defaultTo =
+      today.toISOString().slice(0, 10);
+
+    const defaultFrom = new Date(
+      today.getTime() -
+        30 * 24 * 60 * 60 * 1000
+    )
+      .toISOString()
+      .slice(0, 10);
+
+    const from = String(
+      req.query.from || defaultFrom
+    ).trim();
+
+    const to = String(
+      req.query.to || defaultTo
+    ).trim();
+
+    if (
+      !validDate(from) ||
+      !validDate(to)
+    ) {
+      return res.status(400).json({
+        error:
+          "Période de rapport invalide."
+      });
+    }
+
+    if (from > to) {
+      return res.status(400).json({
+        error:
+          "La date de début doit être antérieure ou égale à la date de fin."
+      });
+    }
+
     const rows = db
       .prepare(`
         SELECT
@@ -1524,13 +1812,46 @@ app.get(
           ) AS total
         FROM sales
         WHERE user_id = ?
+        AND date(created_at) >= ?
+        AND date(created_at) <= ?
         GROUP BY date(created_at)
         ORDER BY day DESC
-        LIMIT 31
       `)
-      .all(req.user.id);
+      .all(
+        req.user.id,
+        from,
+        to
+      );
 
-    res.json(rows);
+    const summary = db
+      .prepare(`
+        SELECT
+          COUNT(*) AS sales_count,
+          COALESCE(
+            SUM(total),
+            0
+          ) AS total,
+          COALESCE(
+            AVG(total),
+            0
+          ) AS average
+        FROM sales
+        WHERE user_id = ?
+        AND date(created_at) >= ?
+        AND date(created_at) <= ?
+      `)
+      .get(
+        req.user.id,
+        from,
+        to
+      );
+
+    res.json({
+      from,
+      to,
+      rows,
+      summary
+    });
   }
 );
 
@@ -1799,6 +2120,17 @@ app.put(
       });
     }
 
+    if (
+      target.email.toLowerCase() ===
+        ADMIN_EMAIL &&
+      req.body.role === "user"
+    ) {
+      return res.status(403).json({
+        error:
+          "L'administrateur principal doit rester administrateur."
+      });
+    }
+
     const allowedPlans = [
       "free",
       "pro",
@@ -1837,7 +2169,10 @@ app.put(
     );
 
     res.json({
-      ok: true
+      ok: true,
+      user: publicUser(
+        getUserById(target.id)
+      )
     });
   }
 );
