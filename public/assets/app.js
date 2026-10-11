@@ -6,15 +6,25 @@
     config: {
       appName: "CashFlow",
       supportEmail: "gestontech@gmail.com",
-      supportWhatsapp: "243993030390"
+      supportWhatsapp: "243993030390",
+      adminEmail: "gestontech@gmail.com"
     },
     page: "dashboard",
     products: [],
     customers: [],
     sales: [],
     debts: [],
-    reports: [],
-    theme: "system"
+    reports: {
+      from: "",
+      to: "",
+      rows: [],
+      summary: {
+        total: 0,
+        count: 0
+      }
+    },
+    theme: "system",
+    language: "fr"
   };
 
   const $ = (selector, root = document) =>
@@ -32,6 +42,470 @@
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   });
+
+  const LANGUAGES = ["fr", "en", "pt", "es"];
+
+  const translations = {
+    fr: {
+      dashboard: "Tableau de bord",
+      products: "Produits & stock",
+      sales: "Ventes",
+      customers: "Clients",
+      debts: "Dettes",
+      reports: "Rapports",
+      subscription: "Abonnement",
+      profile: "Mon profil",
+      admin: "Administration",
+      loading: "Chargement...",
+      wait: "Veuillez patienter.",
+      hello: "BONJOUR",
+      activity: "Voici l'état actuel de votre activité.",
+      newSale: "Nouvelle vente",
+      todaySales: "Ventes aujourd'hui",
+      monthSales: "Ventes du mois",
+      stock: "Stock disponible",
+      remainingDebts: "Dettes restantes",
+      recentSales: "Dernières ventes",
+      currentPlan: "Plan actuel",
+      seeOffers: "Voir les offres",
+      inventory: "INVENTAIRE",
+      manageProducts: "Gérez vos produits et surveillez votre stock.",
+      addProduct: "Ajouter un produit",
+      editProduct: "Modifier le produit",
+      newProduct: "Nouveau produit",
+      save: "Enregistrer",
+      cancel: "Annuler",
+      delete: "Supprimer",
+      available: "Disponible",
+      lowStock: "Stock faible",
+      product: "Produit",
+      sku: "SKU",
+      price: "Prix",
+      quantity: "Quantité",
+      state: "État",
+      actions: "Actions",
+      salesHistory: "Historique des ventes",
+      allRecentSales: "Toutes vos ventes récentes.",
+      exportCSV: "Export CSV",
+      exportPDF: "Export PDF",
+      cashSale: "Client comptant",
+      customer: "Client",
+      payment: "Paiement",
+      paymentMethod: "Méthode de paiement",
+      cash: "Espèces",
+      mobileMoney: "Mobile Money",
+      card: "Carte",
+      transfer: "Virement",
+      note: "Note",
+      saveSale: "Enregistrer la vente",
+      clients: "CLIENTS",
+      manageCustomers: "Gérez vos clients et leurs informations.",
+      addCustomer: "Ajouter un client",
+      newCustomer: "Nouveau client",
+      name: "Nom",
+      phone: "Téléphone",
+      email: "E-mail",
+      debtsTitle: "Dettes clients",
+      manageDebts: "Suivez les montants à récupérer.",
+      addDebt: "Ajouter une dette",
+      newDebt: "Nouvelle dette",
+      amount: "Montant",
+      paid: "Payé",
+      remaining: "Restant",
+      open: "Ouverte",
+      paidStatus: "Payée",
+      paymentHistory: "Historique des paiements",
+      makePayment: "Paiement",
+      reportsTitle: "Rapports",
+      reportsDescription: "Analysez vos ventes sur une période personnalisée.",
+      from: "Du",
+      to: "Au",
+      apply: "Appliquer",
+      revenue: "Chiffre d'affaires",
+      transactions: "Transactions",
+      salesPerDay: "Ventes par jour",
+      account: "COMPTE",
+      manageProfile: "Gérez vos informations personnelles.",
+      changePhoto: "Changer la photo",
+      fullName: "Nom complet",
+      shopName: "Nom de la boutique",
+      sensitiveArea: "Zone sensible",
+      deleteAccount: "Supprimer mon compte",
+      deleteAccountDescription:
+        "La suppression du compte efface définitivement vos données associées.",
+      choosePlan: "Choisissez votre plan",
+      grow: "Évoluez avec votre activité.",
+      recommended: "RECOMMANDÉ",
+      currentPlanButton: "Plan actuel",
+      choosePlanButton: "Choisir ce plan",
+      paymentsUnavailable:
+        "Les paiements en ligne ne sont pas encore connectés.",
+      adminPrivate: "Gestion privée de CashFlow.",
+      users: "Utilisateurs",
+      activeUsers: "Utilisateurs actifs",
+      role: "Rôle",
+      activate: "Activer",
+      deactivate: "Désactiver",
+      noData: "Aucune donnée",
+      noProducts: "Aucun produit",
+      noCustomers: "Aucun client",
+      noSales: "Aucune vente",
+      noDebts: "Aucune dette",
+      support: "Support",
+      logout: "Se déconnecter",
+      createAccount: "Créer un compte",
+      login: "Connexion",
+      success: "Opération réussie.",
+      error: "Une erreur est survenue."
+    },
+
+    en: {
+      dashboard: "Dashboard",
+      products: "Products & stock",
+      sales: "Sales",
+      customers: "Customers",
+      debts: "Debts",
+      reports: "Reports",
+      subscription: "Subscription",
+      profile: "My profile",
+      admin: "Administration",
+      loading: "Loading...",
+      wait: "Please wait.",
+      hello: "HELLO",
+      activity: "Here is the current state of your business.",
+      newSale: "New sale",
+      todaySales: "Today's sales",
+      monthSales: "Monthly sales",
+      stock: "Available stock",
+      remainingDebts: "Outstanding debts",
+      recentSales: "Recent sales",
+      currentPlan: "Current plan",
+      seeOffers: "View plans",
+      inventory: "INVENTORY",
+      manageProducts: "Manage your products and monitor your stock.",
+      addProduct: "Add product",
+      editProduct: "Edit product",
+      newProduct: "New product",
+      save: "Save",
+      cancel: "Cancel",
+      delete: "Delete",
+      available: "Available",
+      lowStock: "Low stock",
+      product: "Product",
+      sku: "SKU",
+      price: "Price",
+      quantity: "Quantity",
+      state: "Status",
+      actions: "Actions",
+      salesHistory: "Sales history",
+      allRecentSales: "All your recent sales.",
+      exportCSV: "CSV export",
+      exportPDF: "PDF export",
+      cashSale: "Walk-in customer",
+      customer: "Customer",
+      payment: "Payment",
+      paymentMethod: "Payment method",
+      cash: "Cash",
+      mobileMoney: "Mobile Money",
+      card: "Card",
+      transfer: "Transfer",
+      note: "Note",
+      saveSale: "Save sale",
+      clients: "CUSTOMERS",
+      manageCustomers: "Manage your customers and their information.",
+      addCustomer: "Add customer",
+      newCustomer: "New customer",
+      name: "Name",
+      phone: "Phone",
+      email: "Email",
+      debtsTitle: "Customer debts",
+      manageDebts: "Track amounts to collect.",
+      addDebt: "Add debt",
+      newDebt: "New debt",
+      amount: "Amount",
+      paid: "Paid",
+      remaining: "Remaining",
+      open: "Open",
+      paidStatus: "Paid",
+      paymentHistory: "Payment history",
+      makePayment: "Payment",
+      reportsTitle: "Reports",
+      reportsDescription: "Analyze your sales over a custom period.",
+      from: "From",
+      to: "To",
+      apply: "Apply",
+      revenue: "Revenue",
+      transactions: "Transactions",
+      salesPerDay: "Sales per day",
+      account: "ACCOUNT",
+      manageProfile: "Manage your personal information.",
+      changePhoto: "Change photo",
+      fullName: "Full name",
+      shopName: "Shop name",
+      sensitiveArea: "Sensitive area",
+      deleteAccount: "Delete my account",
+      deleteAccountDescription:
+        "Deleting your account permanently removes your associated data.",
+      choosePlan: "Choose your plan",
+      grow: "Grow with your business.",
+      recommended: "RECOMMENDED",
+      currentPlanButton: "Current plan",
+      choosePlanButton: "Choose this plan",
+      paymentsUnavailable:
+        "Online payments are not connected yet.",
+      adminPrivate: "Private CashFlow administration.",
+      users: "Users",
+      activeUsers: "Active users",
+      role: "Role",
+      activate: "Activate",
+      deactivate: "Deactivate",
+      noData: "No data",
+      noProducts: "No products",
+      noCustomers: "No customers",
+      noSales: "No sales",
+      noDebts: "No debts",
+      support: "Support",
+      logout: "Log out",
+      createAccount: "Create account",
+      login: "Login",
+      success: "Operation successful.",
+      error: "An error occurred."
+    },
+
+    pt: {
+      dashboard: "Painel",
+      products: "Produtos e estoque",
+      sales: "Vendas",
+      customers: "Clientes",
+      debts: "Dívidas",
+      reports: "Relatórios",
+      subscription: "Assinatura",
+      profile: "Meu perfil",
+      admin: "Administração",
+      loading: "Carregando...",
+      wait: "Aguarde.",
+      hello: "OLÁ",
+      activity: "Veja o estado atual da sua atividade.",
+      newSale: "Nova venda",
+      todaySales: "Vendas de hoje",
+      monthSales: "Vendas do mês",
+      stock: "Estoque disponível",
+      remainingDebts: "Dívidas restantes",
+      recentSales: "Vendas recentes",
+      currentPlan: "Plano atual",
+      seeOffers: "Ver planos",
+      inventory: "ESTOQUE",
+      manageProducts: "Gerencie seus produtos e acompanhe o estoque.",
+      addProduct: "Adicionar produto",
+      editProduct: "Editar produto",
+      newProduct: "Novo produto",
+      save: "Salvar",
+      cancel: "Cancelar",
+      delete: "Excluir",
+      available: "Disponível",
+      lowStock: "Estoque baixo",
+      product: "Produto",
+      sku: "SKU",
+      price: "Preço",
+      quantity: "Quantidade",
+      state: "Estado",
+      actions: "Ações",
+      salesHistory: "Histórico de vendas",
+      allRecentSales: "Todas as suas vendas recentes.",
+      exportCSV: "Exportar CSV",
+      exportPDF: "Exportar PDF",
+      cashSale: "Cliente à vista",
+      customer: "Cliente",
+      payment: "Pagamento",
+      paymentMethod: "Método de pagamento",
+      cash: "Dinheiro",
+      mobileMoney: "Mobile Money",
+      card: "Cartão",
+      transfer: "Transferência",
+      note: "Nota",
+      saveSale: "Salvar venda",
+      clients: "CLIENTES",
+      manageCustomers: "Gerencie seus clientes e informações.",
+      addCustomer: "Adicionar cliente",
+      newCustomer: "Novo cliente",
+      name: "Nome",
+      phone: "Telefone",
+      email: "E-mail",
+      debtsTitle: "Dívidas de clientes",
+      manageDebts: "Acompanhe os valores a receber.",
+      addDebt: "Adicionar dívida",
+      newDebt: "Nova dívida",
+      amount: "Valor",
+      paid: "Pago",
+      remaining: "Restante",
+      open: "Aberta",
+      paidStatus: "Paga",
+      paymentHistory: "Histórico de pagamentos",
+      makePayment: "Pagamento",
+      reportsTitle: "Relatórios",
+      reportsDescription: "Analise suas vendas em um período personalizado.",
+      from: "De",
+      to: "Até",
+      apply: "Aplicar",
+      revenue: "Faturamento",
+      transactions: "Transações",
+      salesPerDay: "Vendas por dia",
+      account: "CONTA",
+      manageProfile: "Gerencie suas informações pessoais.",
+      changePhoto: "Alterar foto",
+      fullName: "Nome completo",
+      shopName: "Nome da loja",
+      sensitiveArea: "Área sensível",
+      deleteAccount: "Excluir minha conta",
+      deleteAccountDescription:
+        "A exclusão da conta remove permanentemente seus dados.",
+      choosePlan: "Escolha seu plano",
+      grow: "Cresça com seu negócio.",
+      recommended: "RECOMENDADO",
+      currentPlanButton: "Plano atual",
+      choosePlanButton: "Escolher este plano",
+      paymentsUnavailable:
+        "Os pagamentos online ainda não estão conectados.",
+      adminPrivate: "Administração privada do CashFlow.",
+      users: "Usuários",
+      activeUsers: "Usuários ativos",
+      role: "Função",
+      activate: "Ativar",
+      deactivate: "Desativar",
+      noData: "Sem dados",
+      noProducts: "Nenhum produto",
+      noCustomers: "Nenhum cliente",
+      noSales: "Nenhuma venda",
+      noDebts: "Nenhuma dívida",
+      support: "Suporte",
+      logout: "Sair",
+      createAccount: "Criar conta",
+      login: "Entrar",
+      success: "Operação concluída.",
+      error: "Ocorreu um erro."
+    },
+
+    es: {
+      dashboard: "Panel",
+      products: "Productos y stock",
+      sales: "Ventas",
+      customers: "Clientes",
+      debts: "Deudas",
+      reports: "Informes",
+      subscription: "Suscripción",
+      profile: "Mi perfil",
+      admin: "Administración",
+      loading: "Cargando...",
+      wait: "Espere.",
+      hello: "HOLA",
+      activity: "Este es el estado actual de su actividad.",
+      newSale: "Nueva venta",
+      todaySales: "Ventas de hoy",
+      monthSales: "Ventas del mes",
+      stock: "Stock disponible",
+      remainingDebts: "Deudas pendientes",
+      recentSales: "Ventas recientes",
+      currentPlan: "Plan actual",
+      seeOffers: "Ver planes",
+      inventory: "INVENTARIO",
+      manageProducts: "Gestione sus productos y controle el stock.",
+      addProduct: "Añadir producto",
+      editProduct: "Editar producto",
+      newProduct: "Nuevo producto",
+      save: "Guardar",
+      cancel: "Cancelar",
+      delete: "Eliminar",
+      available: "Disponible",
+      lowStock: "Stock bajo",
+      product: "Producto",
+      sku: "SKU",
+      price: "Precio",
+      quantity: "Cantidad",
+      state: "Estado",
+      actions: "Acciones",
+      salesHistory: "Historial de ventas",
+      allRecentSales: "Todas sus ventas recientes.",
+      exportCSV: "Exportar CSV",
+      exportPDF: "Exportar PDF",
+      cashSale: "Cliente de contado",
+      customer: "Cliente",
+      payment: "Pago",
+      paymentMethod: "Método de pago",
+      cash: "Efectivo",
+      mobileMoney: "Mobile Money",
+      card: "Tarjeta",
+      transfer: "Transferencia",
+      note: "Nota",
+      saveSale: "Guardar venta",
+      clients: "CLIENTES",
+      manageCustomers: "Gestione sus clientes y sus datos.",
+      addCustomer: "Añadir cliente",
+      newCustomer: "Nuevo cliente",
+      name: "Nombre",
+      phone: "Teléfono",
+      email: "Correo",
+      debtsTitle: "Deudas de clientes",
+      manageDebts: "Controle los importes pendientes.",
+      addDebt: "Añadir deuda",
+      newDebt: "Nueva deuda",
+      amount: "Importe",
+      paid: "Pagado",
+      remaining: "Restante",
+      open: "Abierta",
+      paidStatus: "Pagada",
+      paymentHistory: "Historial de pagos",
+      makePayment: "Pago",
+      reportsTitle: "Informes",
+      reportsDescription: "Analice sus ventas en un período personalizado.",
+      from: "Desde",
+      to: "Hasta",
+      apply: "Aplicar",
+      revenue: "Facturación",
+      transactions: "Transacciones",
+      salesPerDay: "Ventas por día",
+      account: "CUENTA",
+      manageProfile: "Gestione sus datos personales.",
+      changePhoto: "Cambiar foto",
+      fullName: "Nombre completo",
+      shopName: "Nombre de la tienda",
+      sensitiveArea: "Zona sensible",
+      deleteAccount: "Eliminar mi cuenta",
+      deleteAccountDescription:
+        "Eliminar la cuenta borra permanentemente sus datos asociados.",
+      choosePlan: "Elija su plan",
+      grow: "Crezca con su negocio.",
+      recommended: "RECOMENDADO",
+      currentPlanButton: "Plan actual",
+      choosePlanButton: "Elegir este plan",
+      paymentsUnavailable:
+        "Los pagos en línea todavía no están conectados.",
+      adminPrivate: "Administración privada de CashFlow.",
+      users: "Usuarios",
+      activeUsers: "Usuarios activos",
+      role: "Rol",
+      activate: "Activar",
+      deactivate: "Desactivar",
+      noData: "Sin datos",
+      noProducts: "Sin productos",
+      noCustomers: "Sin clientes",
+      noSales: "Sin ventas",
+      noDebts: "Sin deudas",
+      support: "Soporte",
+      logout: "Cerrar sesión",
+      createAccount: "Crear cuenta",
+      login: "Iniciar sesión",
+      success: "Operación realizada.",
+      error: "Ocurrió un error."
+    }
+  };
+
+  function t(key) {
+    return (
+      translations[state.language]?.[key] ||
+      translations.fr[key] ||
+      key
+    );
+  }
 
   function money(value) {
     return currency.format(Number(value || 0));
@@ -57,13 +531,35 @@
       return String(value);
     }
 
-    return date.toLocaleDateString();
+    return date.toLocaleDateString(
+      state.language || undefined
+    );
+  }
+
+  function localDateInput(daysAgo = 0) {
+    const date = new Date();
+
+    date.setDate(
+      date.getDate() - daysAgo
+    );
+
+    const year = date.getFullYear();
+    const month = String(
+      date.getMonth() + 1
+    ).padStart(2, "0");
+    const day = String(
+      date.getDate()
+    ).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
   }
 
   function setMessage(text, type = "") {
     if (!authMessage) return;
 
-    authMessage.textContent = text || "";
+    authMessage.textContent =
+      text || "";
+
     authMessage.className =
       `message ${type}`.trim();
   }
@@ -79,26 +575,33 @@
         ...(options.body instanceof FormData
           ? {}
           : {
-              "Content-Type": "application/json"
+              "Content-Type":
+                "application/json"
             }),
         ...(options.headers || {})
       }
     };
 
-    const response = await fetch(
-      url,
-      config
-    );
+    const response =
+      await fetch(url, config);
 
     const contentType =
-      response.headers.get("content-type") || "";
+      response.headers.get(
+        "content-type"
+      ) || "";
 
     let data;
 
-    if (contentType.includes("application/json")) {
-      data = await response.json();
+    if (
+      contentType.includes(
+        "application/json"
+      )
+    ) {
+      data =
+        await response.json();
     } else {
-      data = await response.text();
+      data =
+        await response.text();
     }
 
     if (!response.ok) {
@@ -108,7 +611,8 @@
           : data;
 
       throw new Error(
-        error || "Une erreur est survenue."
+        error ||
+          t("error")
       );
     }
 
@@ -125,7 +629,7 @@
         ...config
       };
     } catch {
-      // Les valeurs par défaut restent disponibles.
+      // Valeurs par défaut.
     }
 
     updateSupportLinks();
@@ -134,7 +638,8 @@
   function updateSupportLinks() {
     const whatsapp =
       String(
-        state.config.supportWhatsapp || ""
+        state.config.supportWhatsapp ||
+          ""
       ).replace(/\D/g, "");
 
     const email =
@@ -146,23 +651,20 @@
         ? `https://wa.me/${whatsapp}`
         : "#";
 
-    const links = [
+    [
       $("#waAuth"),
       $("#waLink")
-    ];
-
-    links.forEach(link => {
+    ].forEach(link => {
       if (link) {
-        link.href = whatsappURL;
+        link.href =
+          whatsappURL;
       }
     });
 
-    const mailLinks = [
+    [
       $("#mailAuth"),
       $("#mailLink")
-    ];
-
-    mailLinks.forEach(link => {
+    ].forEach(link => {
       if (link) {
         link.href =
           `mailto:${email}`;
@@ -170,8 +672,90 @@
     });
 
     if ($("#mailLink")) {
-      $("#mailLink").textContent = email;
+      $("#mailLink").textContent =
+        email;
     }
+  }
+
+  /* =====================================================
+     LANGUAGE
+  ===================================================== */
+
+  function detectLanguage() {
+    const saved =
+      localStorage.getItem(
+        "cashflow-lang"
+      );
+
+    const browser =
+      (
+        navigator.language ||
+        "fr"
+      ).slice(0, 2).toLowerCase();
+
+    state.language =
+      saved ||
+      (
+        LANGUAGES.includes(browser)
+          ? browser
+          : "fr"
+      );
+
+    document.documentElement.lang =
+      state.language;
+  }
+
+  function refreshStaticLanguage() {
+    document.documentElement.lang =
+      state.language;
+
+    const pageButtonMap = {
+      dashboard: t("dashboard"),
+      products: t("products"),
+      sales: t("sales"),
+      customers: t("customers"),
+      debts: t("debts"),
+      reports: t("reports"),
+      subscription: t("subscription"),
+      profile: t("profile"),
+      admin: t("admin")
+    };
+
+    $$("#nav [data-page]")
+      .forEach(button => {
+        const page =
+          button.dataset.page;
+
+        const label =
+          $("span:last-child", button);
+
+        if (
+          label &&
+          pageButtonMap[page]
+        ) {
+          label.textContent =
+            pageButtonMap[page];
+        }
+      });
+
+    const title =
+      $("#pageTitle");
+
+    if (title) {
+      title.textContent =
+        pageButtonMap[state.page] ||
+        "CashFlow";
+    }
+
+    const logout =
+      $("#logout");
+
+    if (logout) {
+      logout.textContent =
+        t("logout");
+    }
+
+    updateSupportLinks();
   }
 
   /* =====================================================
@@ -187,9 +771,12 @@
   }
 
   function applyTheme() {
-    state.theme = getSavedTheme();
+    state.theme =
+      getSavedTheme();
 
-    if (state.theme === "system") {
+    if (
+      state.theme === "system"
+    ) {
       document.documentElement.removeAttribute(
         "data-theme"
       );
@@ -231,33 +818,37 @@
   ===================================================== */
 
   function switchAuth(mode) {
-    const login =
+    const loginForm =
       $("#loginForm");
 
-    const register =
+    const registerForm =
       $("#registerForm");
 
-    const tabs =
-      $$(".tabs button");
+    if (
+      !loginForm ||
+      !registerForm
+    ) {
+      return;
+    }
 
-    if (!login || !register) return;
-
-    login.classList.toggle(
+    loginForm.classList.toggle(
       "hidden",
       mode !== "login"
     );
 
-    register.classList.toggle(
+    registerForm.classList.toggle(
       "hidden",
       mode !== "register"
     );
 
-    tabs.forEach(button => {
-      button.classList.toggle(
-        "active",
-        button.dataset.auth === mode
-      );
-    });
+    $$(".tabs button")
+      .forEach(button => {
+        button.classList.toggle(
+          "active",
+          button.dataset.auth ===
+            mode
+        );
+      });
 
     setMessage("");
   }
@@ -265,11 +856,17 @@
   async function login(event) {
     event.preventDefault();
 
-    const form =
-      new FormData(event.currentTarget);
+    const data =
+      Object.fromEntries(
+        new FormData(
+          event.currentTarget
+        )
+      );
 
     setMessage(
-      "Connexion en cours..."
+      state.language === "fr"
+        ? "Connexion en cours..."
+        : "Signing in..."
     );
 
     try {
@@ -278,18 +875,13 @@
           "/api/auth/login",
           {
             method: "POST",
-            body: JSON.stringify(
-              Object.fromEntries(form)
-            )
+            body:
+              JSON.stringify(data)
           }
         );
 
-      state.user = result.user;
-
-      setMessage(
-        "Connexion réussie.",
-        "success"
-      );
+      state.user =
+        result.user;
 
       showApp();
 
@@ -307,14 +899,17 @@
   async function register(event) {
     event.preventDefault();
 
-    const form =
-      new FormData(event.currentTarget);
-
     const data =
-      Object.fromEntries(form);
+      Object.fromEntries(
+        new FormData(
+          event.currentTarget
+        )
+      );
 
     setMessage(
-      "Création du compte..."
+      state.language === "fr"
+        ? "Création du compte..."
+        : "Creating account..."
     );
 
     try {
@@ -323,16 +918,13 @@
           "/api/auth/register",
           {
             method: "POST",
-            body: JSON.stringify(data)
+            body:
+              JSON.stringify(data)
           }
         );
 
-      state.user = result.user;
-
-      setMessage(
-        "Compte créé avec succès.",
-        "success"
-      );
+      state.user =
+        result.user;
 
       showApp();
 
@@ -356,26 +948,32 @@
         }
       );
     } catch {
-      // Même en cas d'erreur réseau,
-      // on remet l'interface à zéro.
+      // Nettoyage local.
     }
 
     state.user = null;
 
-    appView.classList.add("hidden");
-    authView.classList.remove("hidden");
+    appView?.classList.add(
+      "hidden"
+    );
+
+    authView?.classList.remove(
+      "hidden"
+    );
 
     switchAuth("login");
-    setMessage("");
   }
 
   async function checkSession() {
     try {
       const result =
-        await api("/api/auth/me");
+        await api(
+          "/api/auth/me"
+        );
 
       if (result.user) {
-        state.user = result.user;
+        state.user =
+          result.user;
 
         showApp();
 
@@ -393,19 +991,31 @@
       // Non connecté.
     }
 
-    authView.classList.remove("hidden");
-    appView.classList.add("hidden");
+    authView?.classList.remove(
+      "hidden"
+    );
+
+    appView?.classList.add(
+      "hidden"
+    );
   }
 
   function showApp() {
-    authView.classList.add("hidden");
-    appView.classList.remove("hidden");
+    authView?.classList.add(
+      "hidden"
+    );
+
+    appView?.classList.remove(
+      "hidden"
+    );
 
     updateUserUI();
   }
 
   function updateUserUI() {
-    if (!state.user) return;
+    if (!state.user) {
+      return;
+    }
 
     const shopLabel =
       $("#shopLabel");
@@ -443,7 +1053,8 @@
     if (adminNav) {
       adminNav.classList.toggle(
         "hidden",
-        state.user.role !== "admin"
+        state.user.role !==
+          "admin"
       );
     }
   }
@@ -453,7 +1064,9 @@
   ===================================================== */
 
   async function loadUserData() {
-    if (!state.user) return;
+    if (!state.user) {
+      return;
+    }
 
     try {
       const [
@@ -468,10 +1081,25 @@
         api("/api/debts")
       ]);
 
-      state.products = products;
-      state.customers = customers;
-      state.sales = sales;
-      state.debts = debts;
+      state.products =
+        Array.isArray(products)
+          ? products
+          : [];
+
+      state.customers =
+        Array.isArray(customers)
+          ? customers
+          : [];
+
+      state.sales =
+        Array.isArray(sales)
+          ? sales
+          : [];
+
+      state.debts =
+        Array.isArray(debts)
+          ? debts
+          : [];
     } catch (error) {
       console.error(error);
     }
@@ -484,15 +1112,15 @@
   ===================================================== */
 
   const titles = {
-    dashboard: "Tableau de bord",
-    products: "Produits & stock",
-    sales: "Ventes",
-    customers: "Clients",
-    debts: "Dettes",
-    reports: "Rapports",
-    subscription: "Abonnement",
-    profile: "Mon profil",
-    admin: "Administration"
+    dashboard: "dashboard",
+    products: "products",
+    sales: "sales",
+    customers: "customers",
+    debts: "debts",
+    reports: "reportsTitle",
+    subscription: "subscription",
+    profile: "profile",
+    admin: "admin"
   };
 
   async function navigate(page) {
@@ -510,36 +1138,41 @@
       page = "dashboard";
     }
 
-    state.page = page;
+    state.page =
+      page;
 
     localStorage.setItem(
       "cashflow-page",
       page
     );
 
-    $$("#nav button").forEach(
-      button => {
+    $$("#nav button")
+      .forEach(button => {
         button.classList.toggle(
           "active",
-          button.dataset.page === page
+          button.dataset.page ===
+            page
         );
-      }
-    );
+      });
 
     const title =
       $("#pageTitle");
 
     if (title) {
       title.textContent =
-        titles[page] ||
+        t(titles[page]) ||
         "CashFlow";
     }
 
     content.innerHTML =
       `<div class="card empty">
         <div>
-          <strong>Chargement...</strong>
-          <span>Veuillez patienter.</span>
+          <strong>${escapeHTML(
+            t("loading")
+          )}</strong>
+          <span>${escapeHTML(
+            t("wait")
+          )}</span>
         </div>
       </div>`;
 
@@ -592,24 +1225,36 @@
   async function renderDashboard() {
     try {
       const data =
-        await api("/api/dashboard");
+        await api(
+          "/api/dashboard"
+        );
 
       const plan =
-        state.user.plan === "elite"
+        state.user.plan ===
+        "elite"
           ? "Élite"
-          : state.user.plan === "pro"
+          : state.user.plan ===
+            "pro"
           ? "Pro"
           : "Gratuit";
 
       content.innerHTML = `
         <div class="page-head">
           <div>
-            <span class="eyebrow">BONJOUR</span>
-            <h2>${escapeHTML(
-              state.user.name
-            )}</h2>
+            <span class="eyebrow">
+              ${escapeHTML(t("hello"))}
+            </span>
+
+            <h2>
+              ${escapeHTML(
+                state.user.name
+              )}
+            </h2>
+
             <p>
-              Voici l'état actuel de votre activité.
+              ${escapeHTML(
+                t("activity")
+              )}
             </p>
           </div>
 
@@ -618,60 +1263,54 @@
               class="primary"
               data-action="new-sale"
             >
-              Nouvelle vente
+              ${escapeHTML(
+                t("newSale")
+              )}
             </button>
           </div>
         </div>
 
         <div class="card-grid">
 
-          <div class="card stat-card">
-            <div class="stat-label">
-              Ventes aujourd'hui
-            </div>
-            <div class="stat-value">
-              ${money(data.today.total)}
-            </div>
-            <div class="stat-meta">
-              ${data.today.count} vente(s)
-            </div>
-          </div>
+          ${statCard(
+            t("todaySales"),
+            money(
+              data.today?.total
+            ),
+            `${
+              data.today?.count ||
+              0
+            } vente(s)`
+          )}
 
-          <div class="card stat-card">
-            <div class="stat-label">
-              Ventes du mois
-            </div>
-            <div class="stat-value">
-              ${money(data.month.total)}
-            </div>
-            <div class="stat-meta">
-              ${data.month.count} vente(s)
-            </div>
-          </div>
+          ${statCard(
+            t("monthSales"),
+            money(
+              data.month?.total
+            ),
+            `${
+              data.month?.count ||
+              0
+            } vente(s)`
+          )}
 
-          <div class="card stat-card">
-            <div class="stat-label">
-              Stock disponible
-            </div>
-            <div class="stat-value">
-              ${data.stock.units}
-            </div>
-            <div class="stat-meta">
-              ${data.stock.low} produit(s) à surveiller
-            </div>
-          </div>
+          ${statCard(
+            t("stock"),
+            data.stock?.units ||
+              0,
+            `${
+              data.stock?.low ||
+              0
+            } produit(s)`
+          )}
 
-          <div class="card stat-card">
-            <div class="stat-label">
-              Dettes restantes
-            </div>
-            <div class="stat-value">
-              ${money(data.debt.amount)}
-            </div>
-            <div class="stat-meta">
-              À récupérer auprès des clients
-            </div>
-          </div>
+          ${statCard(
+            t("remainingDebts"),
+            money(
+              data.debt?.amount
+            ),
+            "À récupérer"
+          )}
 
         </div>
 
@@ -679,37 +1318,61 @@
 
           <div class="card">
             <div class="card-header">
-              <h3>Dernières ventes</h3>
-              <span>${escapeHTML(
-                plan
-              )}</span>
+              <h3>
+                ${escapeHTML(
+                  t("recentSales")
+                )}
+              </h3>
+
+              <span>
+                ${escapeHTML(
+                  plan
+                )}
+              </span>
             </div>
 
             ${
+              Array.isArray(
+                data.recent
+              ) &&
               data.recent.length
-                ? salesTable(data.recent)
+                ? salesTable(
+                    data.recent
+                  )
                 : emptyState(
-                    "Aucune vente",
-                    "Commencez votre première vente."
+                    t("noSales"),
+                    t("activity")
                   )
             }
           </div>
 
           <div class="card">
             <div class="card-header">
-              <h3>Votre abonnement</h3>
-              <span>Plan actuel</span>
+              <h3>
+                ${escapeHTML(
+                  t("subscription")
+                )}
+              </h3>
+
+              <span>
+                ${escapeHTML(
+                  t("currentPlan")
+                )}
+              </span>
             </div>
 
             <div>
               <div class="stat-value">
-                ${escapeHTML(plan)}
+                ${escapeHTML(
+                  plan
+                )}
               </div>
 
               <p style="color:var(--muted);font-size:.82rem">
                 ${
-                  state.user.plan === "free"
-                    ? "30 produits et 20 clients maximum."
+                  state.user.plan ===
+                  "free"
+                    ? "30 produits / 20 clients maximum."
                     : "Fonctionnalités professionnelles activées."
                 }
               </p>
@@ -718,7 +1381,9 @@
                 class="secondary"
                 data-action="subscription"
               >
-                Voir les offres
+                ${escapeHTML(
+                  t("seeOffers")
+                )}
               </button>
             </div>
           </div>
@@ -727,8 +1392,32 @@
       `;
     } catch (error) {
       content.innerHTML =
-        errorState(error.message);
+        errorState(
+          error.message
+        );
     }
+  }
+
+  function statCard(
+    label,
+    value,
+    meta
+  ) {
+    return `
+      <div class="card stat-card">
+        <div class="stat-label">
+          ${escapeHTML(label)}
+        </div>
+
+        <div class="stat-value">
+          ${escapeHTML(value)}
+        </div>
+
+        <div class="stat-meta">
+          ${escapeHTML(meta)}
+        </div>
+      </div>
+    `;
   }
 
   function salesTable(rows) {
@@ -740,28 +1429,58 @@
               <th>ID</th>
               <th>Date</th>
               <th>Total</th>
-              <th>Paiement</th>
+              <th>${escapeHTML(
+                t("payment")
+              )}</th>
+              <th></th>
             </tr>
           </thead>
+
           <tbody>
-            ${rows.map(row => `
-              <tr>
-                <td>#${row.id}</td>
-                <td>${formatDate(
-                  row.created_at
-                )}</td>
-                <td>${money(
-                  row.total
-                )}</td>
-                <td>
-                  <span class="badge">
-                    ${escapeHTML(
-                      row.payment_method || "cash"
-                    )}
-                  </span>
-                </td>
-              </tr>
-            `).join("")}
+            ${rows
+              .map(
+                row => `
+                  <tr>
+                    <td>
+                      #${row.id}
+                    </td>
+
+                    <td>
+                      ${formatDate(
+                        row.created_at
+                      )}
+                    </td>
+
+                    <td>
+                      <strong>
+                        ${money(
+                          row.total
+                        )}
+                      </strong>
+                    </td>
+
+                    <td>
+                      <span class="badge">
+                        ${escapeHTML(
+                          row.payment_method ||
+                            "cash"
+                        )}
+                      </span>
+                    </td>
+
+                    <td>
+                      <button
+                        class="secondary"
+                        data-action="sale-detail"
+                        data-id="${row.id}"
+                      >
+                        Détails
+                      </button>
+                    </td>
+                  </tr>
+                `
+              )
+              .join("")}
           </tbody>
         </table>
       </div>
@@ -776,10 +1495,22 @@
     content.innerHTML = `
       <div class="page-head">
         <div>
-          <span class="eyebrow">INVENTAIRE</span>
-          <h2>Produits & stock</h2>
+          <span class="eyebrow">
+            ${escapeHTML(
+              t("inventory")
+            )}
+          </span>
+
+          <h2>
+            ${escapeHTML(
+              t("products")
+            )}
+          </h2>
+
           <p>
-            Gérez vos produits et surveillez votre stock.
+            ${escapeHTML(
+              t("manageProducts")
+            )}
           </p>
         </div>
 
@@ -788,7 +1519,9 @@
             class="primary"
             data-action="add-product"
           >
-            Ajouter un produit
+            ${escapeHTML(
+              t("addProduct")
+            )}
           </button>
         </div>
       </div>
@@ -801,114 +1534,148 @@
                 <table>
                   <thead>
                     <tr>
-                      <th>Produit</th>
-                      <th>SKU</th>
-                      <th>Prix</th>
+                      <th>${escapeHTML(
+                        t("product")
+                      )}</th>
+                      <th>${escapeHTML(
+                        t("sku")
+                      )}</th>
+                      <th>${escapeHTML(
+                        t("price")
+                      )}</th>
                       <th>Stock</th>
-                      <th>État</th>
-                      <th>Actions</th>
+                      <th>${escapeHTML(
+                        t("state")
+                      )}</th>
+                      <th>${escapeHTML(
+                        t("actions")
+                      )}</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    ${state.products.map(
-                      product => `
-                        <tr>
-                          <td>
-                            <strong>
+                    ${state.products
+                      .map(
+                        product => `
+                          <tr>
+                            <td>
+                              <strong>
+                                ${escapeHTML(
+                                  product.name
+                                )}
+                              </strong>
+                            </td>
+
+                            <td>
                               ${escapeHTML(
-                                product.name
+                                product.sku ||
+                                  "—"
                               )}
-                            </strong>
-                          </td>
+                            </td>
 
-                          <td>
-                            ${escapeHTML(
-                              product.sku || "—"
-                            )}
-                          </td>
+                            <td>
+                              ${money(
+                                product.price
+                              )}
+                            </td>
 
-                          <td>
-                            ${money(
-                              product.price
-                            )}
-                          </td>
+                            <td>
+                              ${product.stock}
+                            </td>
 
-                          <td>
-                            ${product.stock}
-                          </td>
+                            <td>
+                              ${
+                                Number(
+                                  product.stock
+                                ) <=
+                                Number(
+                                  product.min_stock
+                                )
+                                  ? `
+                                    <span class="badge warning">
+                                      ${escapeHTML(
+                                        t(
+                                          "lowStock"
+                                        )
+                                      )}
+                                    </span>
+                                  `
+                                  : `
+                                    <span class="badge">
+                                      ${escapeHTML(
+                                        t(
+                                          "available"
+                                        )
+                                      )}
+                                    </span>
+                                  `
+                              }
+                            </td>
 
-                          <td>
-                            ${
-                              Number(product.stock) <=
-                              Number(product.min_stock)
-                                ? `
-                                  <span class="badge warning">
-                                    Stock faible
-                                  </span>
-                                `
-                                : `
-                                  <span class="badge">
-                                    Disponible
-                                  </span>
-                                `
-                            }
-                          </td>
+                            <td>
+                              <button
+                                class="secondary"
+                                data-action="edit-product"
+                                data-id="${product.id}"
+                              >
+                                ${escapeHTML(
+                                  t("save")
+                                )}
+                              </button>
 
-                          <td>
-                            <button
-                              class="secondary"
-                              data-action="edit-product"
-                              data-id="${product.id}"
-                            >
-                              Modifier
-                            </button>
-
-                            <button
-                              class="secondary danger"
-                              data-action="delete-product"
-                              data-id="${product.id}"
-                            >
-                              Supprimer
-                            </button>
-                          </td>
-                        </tr>
-                      `
-                    ).join("")}
+                              <button
+                                class="secondary danger"
+                                data-action="delete-product"
+                                data-id="${product.id}"
+                              >
+                                ${escapeHTML(
+                                  t("delete")
+                                )}
+                              </button>
+                            </td>
+                          </tr>
+                        `
+                      )
+                      .join("")}
                   </tbody>
                 </table>
               </div>
             `
             : emptyState(
-                "Aucun produit",
-                "Ajoutez votre premier produit."
+                t("noProducts"),
+                t("manageProducts")
               )
         }
       </div>
     `;
   }
 
-  function productForm(product = null) {
+  function productForm(
+    product = null
+  ) {
     const editing =
       Boolean(product);
 
     content.innerHTML = `
       <div class="page-head">
         <div>
-          <span class="eyebrow">PRODUIT</span>
+          <span class="eyebrow">
+            ${escapeHTML(
+              t("product")
+            )}
+          </span>
+
           <h2>
-            ${editing
-              ? "Modifier le produit"
-              : "Nouveau produit"}
+            ${escapeHTML(
+              editing
+                ? t("editProduct")
+                : t("newProduct")
+            )}
           </h2>
-          <p>
-            Enregistrez les informations du produit.
-          </p>
         </div>
       </div>
 
       <div class="card">
-
         <form
           id="productForm"
           class="form-grid"
@@ -916,34 +1683,43 @@
 
           <div class="field">
             <label>
-              Nom
+              ${escapeHTML(
+                t("name")
+              )}
+
               <input
                 name="name"
                 required
                 value="${escapeHTML(
-                  product?.name || ""
+                  product?.name ||
+                    ""
                 )}"
-                placeholder="Ex. Riz 25 kg"
               >
             </label>
           </div>
 
           <div class="field">
             <label>
-              SKU
+              ${escapeHTML(
+                t("sku")
+              )}
+
               <input
                 name="sku"
                 value="${escapeHTML(
-                  product?.sku || ""
+                  product?.sku ||
+                    ""
                 )}"
-                placeholder="REF-001"
               >
             </label>
           </div>
 
           <div class="field">
             <label>
-              Prix
+              ${escapeHTML(
+                t("price")
+              )}
+
               <input
                 name="price"
                 type="number"
@@ -958,6 +1734,7 @@
           <div class="field">
             <label>
               Stock
+
               <input
                 name="stock"
                 type="number"
@@ -972,6 +1749,7 @@
           <div class="field">
             <label>
               Seuil d'alerte
+
               <input
                 name="min_stock"
                 type="number"
@@ -988,18 +1766,18 @@
               class="secondary"
               data-action="products"
             >
-              Annuler
+              ${escapeHTML(
+                t("cancel")
+              )}
             </button>
 
             <button
               type="submit"
               class="primary"
             >
-              ${
-                editing
-                  ? "Enregistrer"
-                  : "Ajouter"
-              }
+              ${escapeHTML(
+                t("save")
+              )}
             </button>
           </div>
 
@@ -1038,7 +1816,9 @@
       Number(data.stock);
 
     data.min_stock =
-      Number(data.min_stock || 0);
+      Number(
+        data.min_stock || 0
+      );
 
     try {
       await api(
@@ -1050,12 +1830,15 @@
             product
               ? "PUT"
               : "POST",
-          body: JSON.stringify(data)
+          body:
+            JSON.stringify(data)
         }
       );
 
       state.products =
-        await api("/api/products");
+        await api(
+          "/api/products"
+        );
 
       navigate("products");
     } catch (error) {
@@ -1066,7 +1849,9 @@
   async function deleteProduct(id) {
     const product =
       state.products.find(
-        item => Number(item.id) === Number(id)
+        item =>
+          Number(item.id) ===
+          Number(id)
       );
 
     if (!product) return;
@@ -1088,7 +1873,9 @@
       );
 
       state.products =
-        await api("/api/products");
+        await api(
+          "/api/products"
+        );
 
       renderProducts();
     } catch (error) {
@@ -1104,10 +1891,22 @@
     content.innerHTML = `
       <div class="page-head">
         <div>
-          <span class="eyebrow">VENTES</span>
-          <h2>Historique des ventes</h2>
+          <span class="eyebrow">
+            ${escapeHTML(
+              t("sales")
+            )}
+          </span>
+
+          <h2>
+            ${escapeHTML(
+              t("salesHistory")
+            )}
+          </h2>
+
           <p>
-            Toutes vos ventes récentes.
+            ${escapeHTML(
+              t("allRecentSales")
+            )}
           </p>
         </div>
 
@@ -1116,21 +1915,27 @@
             class="secondary"
             data-action="export-csv"
           >
-            Export CSV
+            ${escapeHTML(
+              t("exportCSV")
+            )}
           </button>
 
           <button
             class="secondary"
             data-action="export-pdf"
           >
-            Export PDF
+            ${escapeHTML(
+              t("exportPDF")
+            )}
           </button>
 
           <button
             class="primary"
             data-action="new-sale"
           >
-            Nouvelle vente
+            ${escapeHTML(
+              t("newSale")
+            )}
           </button>
         </div>
       </div>
@@ -1145,52 +1950,78 @@
                     <tr>
                       <th>ID</th>
                       <th>Date</th>
-                      <th>Client</th>
+                      <th>${escapeHTML(
+                        t("customer")
+                      )}</th>
                       <th>Total</th>
-                      <th>Paiement</th>
+                      <th>${escapeHTML(
+                        t("payment")
+                      )}</th>
+                      <th></th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    ${state.sales.map(
-                      sale => `
-                        <tr>
-                          <td>#${sale.id}</td>
-                          <td>
-                            ${formatDate(
-                              sale.created_at
-                            )}
-                          </td>
-                          <td>
-                            ${escapeHTML(
-                              sale.customer_name ||
-                              "Comptant"
-                            )}
-                          </td>
-                          <td>
-                            <strong>
-                              ${money(
-                                sale.total
+                    ${state.sales
+                      .map(
+                        sale => `
+                          <tr>
+                            <td>
+                              #${sale.id}
+                            </td>
+
+                            <td>
+                              ${formatDate(
+                                sale.created_at
                               )}
-                            </strong>
-                          </td>
-                          <td>
-                            <span class="badge">
+                            </td>
+
+                            <td>
                               ${escapeHTML(
-                                sale.payment_method
+                                sale.customer_name ||
+                                  t(
+                                    "cashSale"
+                                  )
                               )}
-                            </span>
-                          </td>
-                        </tr>
-                      `
-                    ).join("")}
+                            </td>
+
+                            <td>
+                              <strong>
+                                ${money(
+                                  sale.total
+                                )}
+                              </strong>
+                            </td>
+
+                            <td>
+                              <span class="badge">
+                                ${escapeHTML(
+                                  sale.payment_method ||
+                                    "cash"
+                                )}
+                              </span>
+                            </td>
+
+                            <td>
+                              <button
+                                class="secondary"
+                                data-action="sale-detail"
+                                data-id="${sale.id}"
+                              >
+                                Détails
+                              </button>
+                            </td>
+                          </tr>
+                        `
+                      )
+                      .join("")}
                   </tbody>
                 </table>
               </div>
             `
             : emptyState(
-                "Aucune vente",
-                "Votre historique apparaîtra ici."
+                t("noSales"),
+                t("allRecentSales")
               )
         }
       </div>
@@ -1198,10 +2029,13 @@
   }
 
   function newSale() {
-    if (!state.products.length) {
+    if (
+      !state.products.length
+    ) {
       alert(
-        "Ajoutez d'abord au moins un produit."
+        t("noProducts")
       );
+
       navigate("products");
       return;
     }
@@ -1209,58 +2043,101 @@
     content.innerHTML = `
       <div class="page-head">
         <div>
-          <span class="eyebrow">CAISSE</span>
-          <h2>Nouvelle vente</h2>
-          <p>
-            Sélectionnez les produits vendus.
-          </p>
+          <span class="eyebrow">
+            ${escapeHTML(
+              t("sales")
+            )}
+          </span>
+
+          <h2>
+            ${escapeHTML(
+              t("newSale")
+            )}
+          </h2>
         </div>
       </div>
 
       <div class="card">
-
         <form id="saleForm">
 
-          <div id="saleItems"></div>
+          <div
+            id="saleItems"
+          ></div>
 
-          <div class="form-grid">
+          <button
+            type="button"
+            class="secondary"
+            data-action="add-sale-row"
+          >
+            + Produit
+          </button>
+
+          <div
+            class="form-grid"
+            style="margin-top:20px"
+          >
 
             <div class="field">
               <label>
-                Client
-                <select name="customer_id">
+                ${escapeHTML(
+                  t("customer")
+                )}
+
+                <select
+                  name="customer_id"
+                >
                   <option value="">
-                    Client comptant
+                    ${escapeHTML(
+                      t("cashSale")
+                    )}
                   </option>
 
-                  ${state.customers.map(
-                    customer => `
-                      <option value="${customer.id}">
-                        ${escapeHTML(
-                          customer.name
-                        )}
-                      </option>
-                    `
-                  ).join("")}
+                  ${state.customers
+                    .map(
+                      customer => `
+                        <option value="${customer.id}">
+                          ${escapeHTML(
+                            customer.name
+                          )}
+                        </option>
+                      `
+                    )
+                    .join("")}
                 </select>
               </label>
             </div>
 
             <div class="field">
               <label>
-                Méthode de paiement
-                <select name="payment_method">
+                ${escapeHTML(
+                  t("paymentMethod")
+                )}
+
+                <select
+                  name="payment_method"
+                >
                   <option value="cash">
-                    Espèces
+                    ${escapeHTML(
+                      t("cash")
+                    )}
                   </option>
+
                   <option value="mobile_money">
-                    Mobile Money
+                    ${escapeHTML(
+                      t("mobileMoney")
+                    )}
                   </option>
+
                   <option value="card">
-                    Carte
+                    ${escapeHTML(
+                      t("card")
+                    )}
                   </option>
+
                   <option value="transfer">
-                    Virement
+                    ${escapeHTML(
+                      t("transfer")
+                    )}
                   </option>
                 </select>
               </label>
@@ -1268,10 +2145,12 @@
 
             <div class="field full">
               <label>
-                Note
+                ${escapeHTML(
+                  t("note")
+                )}
+
                 <textarea
                   name="note"
-                  placeholder="Note facultative"
                 ></textarea>
               </label>
             </div>
@@ -1287,7 +2166,7 @@
               text-align:right;
             "
           >
-            Total : 0.00
+            Total : ${money(0)}
           </div>
 
           <div class="form-actions">
@@ -1297,14 +2176,18 @@
               class="secondary"
               data-action="sales"
             >
-              Annuler
+              ${escapeHTML(
+                t("cancel")
+              )}
             </button>
 
             <button
               type="submit"
               class="primary"
             >
-              Enregistrer la vente
+              ${escapeHTML(
+                t("saveSale")
+              )}
             </button>
 
           </div>
@@ -1326,10 +2209,14 @@
     const container =
       $("#saleItems");
 
-    if (!container) return;
+    if (!container) {
+      return;
+    }
 
     const row =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
     row.className =
       "sale-row";
@@ -1338,7 +2225,7 @@
       "grid";
 
     row.style.gridTemplateColumns =
-      "minmax(0,1fr) 100px 120px 45px";
+      "minmax(0,1fr) 90px 120px 45px";
 
     row.style.gap =
       "10px";
@@ -1352,25 +2239,32 @@
         required
       >
         <option value="">
-          Sélectionner un produit
+          ${escapeHTML(
+            t("product")
+          )}
         </option>
 
-        ${state.products.map(
-          product => `
-            <option
-              value="${product.id}"
-              data-price="${product.price}"
-            >
-              ${escapeHTML(
-                product.name
-              )}
-              — ${money(
-                product.price
-              )}
-              — stock ${product.stock}
-            </option>
-          `
-        ).join("")}
+        ${state.products
+          .map(
+            product => `
+              <option
+                value="${product.id}"
+                data-price="${product.price}"
+                data-stock="${product.stock}"
+              >
+                ${escapeHTML(
+                  product.name
+                )}
+                — ${money(
+                  product.price
+                )}
+                — stock ${
+                  product.stock
+                }
+              </option>
+            `
+          )
+          .join("")}
       </select>
 
       <input
@@ -1390,7 +2284,7 @@
           font-weight:750;
         "
       >
-        0.00
+        ${money(0)}
       </div>
 
       <button
@@ -1402,45 +2296,40 @@
       </button>
     `;
 
-    container.appendChild(row);
+    container.appendChild(
+      row
+    );
 
-    row
-      .querySelector(
-        ".sale-product"
-      )
+    $(".sale-product", row)
       ?.addEventListener(
         "change",
         updateSaleTotal
       );
 
-    row
-      .querySelector(
-        ".sale-quantity"
-      )
+    $(".sale-quantity", row)
       ?.addEventListener(
         "input",
         updateSaleTotal
       );
 
-    row
-      .querySelector(
-        "[data-remove-sale-row]"
-      )
-      ?.addEventListener(
-        "click",
-        () => {
-          row.remove();
+    $(
+      "[data-remove-sale-row]",
+      row
+    )?.addEventListener(
+      "click",
+      () => {
+        row.remove();
 
-          if (
-            !$("#saleItems")
-              .children.length
-          ) {
-            addSaleRow();
-          }
-
-          updateSaleTotal();
+        if (
+          !container.children
+            .length
+        ) {
+          addSaleRow();
         }
-      );
+
+        updateSaleTotal();
+      }
+    );
 
     updateSaleTotal();
   }
@@ -1448,8 +2337,8 @@
   function updateSaleTotal() {
     let total = 0;
 
-    $$(".sale-row").forEach(
-      row => {
+    $$(".sale-row")
+      .forEach(row => {
         const select =
           $(".sale-product", row);
 
@@ -1464,7 +2353,8 @@
 
         const price =
           Number(
-            option?.dataset.price || 0
+            option?.dataset.price ||
+              0
           );
 
         const subtotal =
@@ -1479,8 +2369,7 @@
           output.textContent =
             money(subtotal);
         }
-      }
-    );
+      });
 
     const totalNode =
       $("#saleTotal");
@@ -1519,9 +2408,29 @@
         return;
       }
 
+      const selected =
+        product.selectedOptions[0];
+
+      const stock =
+        Number(
+          selected?.dataset.stock ||
+            0
+        );
+
+      if (
+        quantity > stock
+      ) {
+        alert(
+          `Stock insuffisant pour ${selected.textContent.trim()}.`
+        );
+        return;
+      }
+
       items.push({
         product_id:
-          Number(product.value),
+          Number(
+            product.value
+          ),
         quantity
       });
     }
@@ -1536,13 +2445,18 @@
       customer_id:
         form.get("customer_id")
           ? Number(
-              form.get("customer_id")
+              form.get(
+                "customer_id"
+              )
             )
           : null,
       payment_method:
-        form.get("payment_method"),
+        form.get(
+          "payment_method"
+        ),
       note:
-        form.get("note") || ""
+        form.get("note") ||
+        ""
     };
 
     try {
@@ -1550,13 +2464,161 @@
         "/api/sales",
         {
           method: "POST",
-          body: JSON.stringify(data)
+          body:
+            JSON.stringify(data)
         }
       );
 
       await loadUserData();
 
       navigate("sales");
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  async function showSaleDetail(id) {
+    try {
+      const sale =
+        await api(
+          `/api/sales/${id}`
+        );
+
+      const items =
+        Array.isArray(
+          sale.items
+        )
+          ? sale.items
+          : [];
+
+      content.innerHTML = `
+        <div class="page-head">
+          <div>
+            <span class="eyebrow">
+              ${escapeHTML(
+                t("sales")
+              )}
+            </span>
+
+            <h2>
+              Vente #${id}
+            </h2>
+
+            <p>
+              ${formatDate(
+                sale.created_at
+              )}
+            </p>
+          </div>
+
+          <button
+            class="secondary"
+            data-action="sales"
+          >
+            ${escapeHTML(
+              t("cancel")
+            )}
+          </button>
+        </div>
+
+        <div class="card">
+
+          <div class="card-grid">
+
+            ${statCard(
+              "Total",
+              money(sale.total),
+              sale.payment_method ||
+                "cash"
+            )}
+
+            ${statCard(
+              t("customer"),
+              sale.customer_name ||
+                t("cashSale"),
+              ""
+            )}
+
+          </div>
+
+          <div
+            class="table-wrap"
+            style="margin-top:20px"
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th>${escapeHTML(
+                    t("product")
+                  )}</th>
+                  <th>${escapeHTML(
+                    t("quantity")
+                  )}</th>
+                  <th>${escapeHTML(
+                    t("price")
+                  )}</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                ${items
+                  .map(
+                    item => `
+                      <tr>
+                        <td>
+                          ${escapeHTML(
+                            item.product_name ||
+                              item.name ||
+                              "Produit"
+                          )}
+                        </td>
+
+                        <td>
+                          ${item.quantity}
+                        </td>
+
+                        <td>
+                          ${money(
+                            item.price
+                          )}
+                        </td>
+
+                        <td>
+                          ${money(
+                            Number(
+                              item.quantity
+                            ) *
+                              Number(
+                                item.price
+                              )
+                          )}
+                        </td>
+                      </tr>
+                    `
+                  )
+                  .join("")}
+              </tbody>
+            </table>
+          </div>
+
+          ${
+            sale.note
+              ? `
+                <p style="
+                  margin-top:18px;
+                  color:var(--muted)
+                ">
+                  ${escapeHTML(
+                    sale.note
+                  )}
+                </p>
+              `
+              : ""
+          }
+
+        </div>
+      `;
     } catch (error) {
       alert(error.message);
     }
@@ -1570,10 +2632,22 @@
     content.innerHTML = `
       <div class="page-head">
         <div>
-          <span class="eyebrow">CLIENTS</span>
-          <h2>Clients</h2>
+          <span class="eyebrow">
+            ${escapeHTML(
+              t("clients")
+            )}
+          </span>
+
+          <h2>
+            ${escapeHTML(
+              t("customers")
+            )}
+          </h2>
+
           <p>
-            Gérez vos clients et leurs informations.
+            ${escapeHTML(
+              t("manageCustomers")
+            )}
           </p>
         </div>
 
@@ -1581,7 +2655,9 @@
           class="primary"
           data-action="add-customer"
         >
-          Ajouter un client
+          ${escapeHTML(
+            t("addCustomer")
+          )}
         </button>
       </div>
 
@@ -1593,71 +2669,106 @@
                 <table>
                   <thead>
                     <tr>
-                      <th>Nom</th>
-                      <th>Téléphone</th>
-                      <th>E-mail</th>
-                      <th>Actions</th>
+                      <th>${escapeHTML(
+                        t("name")
+                      )}</th>
+                      <th>${escapeHTML(
+                        t("phone")
+                      )}</th>
+                      <th>${escapeHTML(
+                        t("email")
+                      )}</th>
+                      <th>${escapeHTML(
+                        t("actions")
+                      )}</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    ${state.customers.map(
-                      customer => `
-                        <tr>
-                          <td>
-                            <strong>
+                    ${state.customers
+                      .map(
+                        customer => `
+                          <tr>
+                            <td>
+                              <strong>
+                                ${escapeHTML(
+                                  customer.name
+                                )}
+                              </strong>
+                            </td>
+
+                            <td>
                               ${escapeHTML(
-                                customer.name
+                                customer.phone ||
+                                  "—"
                               )}
-                            </strong>
-                          </td>
+                            </td>
 
-                          <td>
-                            ${escapeHTML(
-                              customer.phone || "—"
-                            )}
-                          </td>
+                            <td>
+                              ${escapeHTML(
+                                customer.email ||
+                                  "—"
+                              )}
+                            </td>
 
-                          <td>
-                            ${escapeHTML(
-                              customer.email || "—"
-                            )}
-                          </td>
+                            <td>
+                              <button
+                                class="secondary"
+                                data-action="edit-customer"
+                                data-id="${customer.id}"
+                              >
+                                Modifier
+                              </button>
 
-                          <td>
-                            <button
-                              class="secondary danger"
-                              data-action="delete-customer"
-                              data-id="${customer.id}"
-                            >
-                              Supprimer
-                            </button>
-                          </td>
-                        </tr>
-                      `
-                    ).join("")}
+                              <button
+                                class="secondary danger"
+                                data-action="delete-customer"
+                                data-id="${customer.id}"
+                              >
+                                ${escapeHTML(
+                                  t("delete")
+                                )}
+                              </button>
+                            </td>
+                          </tr>
+                        `
+                      )
+                      .join("")}
                   </tbody>
                 </table>
               </div>
             `
             : emptyState(
-                "Aucun client",
-                "Ajoutez votre premier client."
+                t("noCustomers"),
+                t("manageCustomers")
               )
         }
       </div>
     `;
   }
 
-  function customerForm() {
+  function customerForm(
+    customer = null
+  ) {
+    const editing =
+      Boolean(customer);
+
     content.innerHTML = `
       <div class="page-head">
         <div>
-          <span class="eyebrow">CLIENT</span>
-          <h2>Nouveau client</h2>
-          <p>
-            Ajoutez les coordonnées de votre client.
-          </p>
+          <span class="eyebrow">
+            ${escapeHTML(
+              t("customers")
+            )}
+          </span>
+
+          <h2>
+            ${escapeHTML(
+              editing
+                ? "Modifier le client"
+                : t("newCustomer")
+            )}
+          </h2>
         </div>
       </div>
 
@@ -1669,32 +2780,50 @@
 
           <div class="field">
             <label>
-              Nom
+              ${escapeHTML(
+                t("name")
+              )}
+
               <input
                 name="name"
                 required
-                placeholder="Nom du client"
+                value="${escapeHTML(
+                  customer?.name ||
+                    ""
+                )}"
               >
             </label>
           </div>
 
           <div class="field">
             <label>
-              Téléphone
+              ${escapeHTML(
+                t("phone")
+              )}
+
               <input
                 name="phone"
-                placeholder="+243..."
+                value="${escapeHTML(
+                  customer?.phone ||
+                    ""
+                )}"
               >
             </label>
           </div>
 
           <div class="field">
             <label>
-              E-mail
+              ${escapeHTML(
+                t("email")
+              )}
+
               <input
                 name="email"
                 type="email"
-                placeholder="client@example.com"
+                value="${escapeHTML(
+                  customer?.email ||
+                    ""
+                )}"
               >
             </label>
           </div>
@@ -1705,14 +2834,18 @@
               class="secondary"
               data-action="customers"
             >
-              Annuler
+              ${escapeHTML(
+                t("cancel")
+              )}
             </button>
 
             <button
               type="submit"
               class="primary"
             >
-              Ajouter
+              ${escapeHTML(
+                t("save")
+              )}
             </button>
           </div>
 
@@ -1735,11 +2868,18 @@
 
           try {
             await api(
-              "/api/customers",
+              editing
+                ? `/api/customers/${customer.id}`
+                : "/api/customers",
               {
-                method: "POST",
+                method:
+                  editing
+                    ? "PUT"
+                    : "POST",
                 body:
-                  JSON.stringify(data)
+                  JSON.stringify(
+                    data
+                  )
               }
             );
 
@@ -1748,9 +2888,13 @@
                 "/api/customers"
               );
 
-            navigate("customers");
+            navigate(
+              "customers"
+            );
           } catch (error) {
-            alert(error.message);
+            alert(
+              error.message
+            );
           }
         }
       );
@@ -1811,23 +2955,40 @@
     content.innerHTML = `
       <div class="page-head">
         <div>
-          <span class="eyebrow">CRÉDIT</span>
-          <h2>Dettes clients</h2>
+          <span class="eyebrow">
+            ${escapeHTML(
+              t("debtsTitle")
+            )}
+          </span>
+
+          <h2>
+            ${escapeHTML(
+              t("debts")
+            )}
+          </h2>
+
           <p>
-            Suivez les montants à récupérer.
+            ${escapeHTML(
+              t("manageDebts")
+            )}
           </p>
         </div>
 
         <div class="page-actions">
           <span class="badge warning">
-            Total restant : ${money(total)}
+            ${escapeHTML(
+              t("remaining")
+            )} :
+            ${money(total)}
           </span>
 
           <button
             class="primary"
             data-action="add-debt"
           >
-            Ajouter une dette
+            ${escapeHTML(
+              t("addDebt")
+            )}
           </button>
         </div>
       </div>
@@ -1840,89 +3001,127 @@
                 <table>
                   <thead>
                     <tr>
-                      <th>Client</th>
-                      <th>Montant</th>
-                      <th>Payé</th>
-                      <th>Restant</th>
-                      <th>État</th>
-                      <th>Action</th>
+                      <th>${escapeHTML(
+                        t("customer")
+                      )}</th>
+                      <th>${escapeHTML(
+                        t("amount")
+                      )}</th>
+                      <th>${escapeHTML(
+                        t("paid")
+                      )}</th>
+                      <th>${escapeHTML(
+                        t("remaining")
+                      )}</th>
+                      <th>${escapeHTML(
+                        t("state")
+                      )}</th>
+                      <th>${escapeHTML(
+                        t("actions")
+                      )}</th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    ${state.debts.map(
-                      debt => `
-                        <tr>
-                          <td>
-                            ${escapeHTML(
-                              debt.customer_name ||
-                              "Client"
-                            )}
-                          </td>
-
-                          <td>
-                            ${money(
-                              debt.amount
-                            )}
-                          </td>
-
-                          <td>
-                            ${money(
-                              debt.paid
-                            )}
-                          </td>
-
-                          <td>
-                            <strong>
-                              ${money(
-                                debt.remaining
+                    ${state.debts
+                      .map(
+                        debt => `
+                          <tr>
+                            <td>
+                              ${escapeHTML(
+                                debt.customer_name ||
+                                  "Client"
                               )}
-                            </strong>
-                          </td>
+                            </td>
 
-                          <td>
-                            ${
-                              debt.status ===
-                              "paid"
-                                ? `
-                                  <span class="badge">
-                                    Payée
-                                  </span>
-                                `
-                                : `
-                                  <span class="badge warning">
-                                    Ouverte
-                                  </span>
-                                `
-                            }
-                          </td>
+                            <td>
+                              ${money(
+                                debt.amount
+                              )}
+                            </td>
 
-                          <td>
-                            ${
-                              debt.status !==
-                              "paid"
-                                ? `
-                                  <button
-                                    class="secondary"
-                                    data-action="pay-debt"
-                                    data-id="${debt.id}"
-                                  >
-                                    Paiement
-                                  </button>
-                                `
-                                : "—"
-                            }
-                          </td>
-                        </tr>
-                      `
-                    ).join("")}
+                            <td>
+                              ${money(
+                                debt.paid
+                              )}
+                            </td>
+
+                            <td>
+                              <strong>
+                                ${money(
+                                  debt.remaining
+                                )}
+                              </strong>
+                            </td>
+
+                            <td>
+                              ${
+                                debt.status ===
+                                "paid"
+                                  ? `
+                                    <span class="badge">
+                                      ${escapeHTML(
+                                        t(
+                                          "paidStatus"
+                                        )
+                                      )}
+                                    </span>
+                                  `
+                                  : `
+                                    <span class="badge warning">
+                                      ${escapeHTML(
+                                        t(
+                                          "open"
+                                        )
+                                      )}
+                                    </span>
+                                  `
+                              }
+                            </td>
+
+                            <td>
+                              <button
+                                class="secondary"
+                                data-action="debt-history"
+                                data-id="${debt.id}"
+                              >
+                                ${escapeHTML(
+                                  t(
+                                    "paymentHistory"
+                                  )
+                                )}
+                              </button>
+
+                              ${
+                                debt.status !==
+                                "paid"
+                                  ? `
+                                    <button
+                                      class="secondary"
+                                      data-action="pay-debt"
+                                      data-id="${debt.id}"
+                                    >
+                                      ${escapeHTML(
+                                        t(
+                                          "makePayment"
+                                        )
+                                      )}
+                                    </button>
+                                  `
+                                  : ""
+                              }
+                            </td>
+                          </tr>
+                        `
+                      )
+                      .join("")}
                   </tbody>
                 </table>
               </div>
             `
             : emptyState(
-                "Aucune dette",
-                "Les dettes clients apparaîtront ici."
+                t("noDebts"),
+                t("manageDebts")
               )
         }
       </div>
@@ -1933,11 +3132,17 @@
     content.innerHTML = `
       <div class="page-head">
         <div>
-          <span class="eyebrow">DETTE</span>
-          <h2>Nouvelle dette</h2>
-          <p>
-            Enregistrez une dette client.
-          </p>
+          <span class="eyebrow">
+            ${escapeHTML(
+              t("debts")
+            )}
+          </span>
+
+          <h2>
+            ${escapeHTML(
+              t("newDebt")
+            )}
+          </h2>
         </div>
       </div>
 
@@ -1949,28 +3154,43 @@
 
           <div class="field">
             <label>
-              Client
-              <select name="customer_id">
+              ${escapeHTML(
+                t("customer")
+              )}
+
+              <select
+                name="customer_id"
+                required
+              >
                 <option value="">
-                  Client
+                  ${escapeHTML(
+                    t("customer")
+                  )}
                 </option>
 
-                ${state.customers.map(
-                  customer => `
-                    <option value="${customer.id}">
-                      ${escapeHTML(
-                        customer.name
-                      )}
-                    </option>
-                  `
-                ).join("")}
+                ${state.customers
+                  .map(
+                    customer => `
+                      <option
+                        value="${customer.id}"
+                      >
+                        ${escapeHTML(
+                          customer.name
+                        )}
+                      </option>
+                    `
+                  )
+                  .join("")}
               </select>
             </label>
           </div>
 
           <div class="field">
             <label>
-              Montant
+              ${escapeHTML(
+                t("amount")
+              )}
+
               <input
                 name="amount"
                 type="number"
@@ -1983,10 +3203,12 @@
 
           <div class="field full">
             <label>
-              Note
+              ${escapeHTML(
+                t("note")
+              )}
+
               <textarea
                 name="note"
-                placeholder="Détails facultatifs"
               ></textarea>
             </label>
           </div>
@@ -1997,14 +3219,18 @@
               class="secondary"
               data-action="debts"
             >
-              Annuler
+              ${escapeHTML(
+                t("cancel")
+              )}
             </button>
 
             <button
               type="submit"
               class="primary"
             >
-              Enregistrer
+              ${escapeHTML(
+                t("save")
+              )}
             </button>
           </div>
 
@@ -2026,14 +3252,14 @@
             );
 
           data.amount =
-            Number(data.amount);
+            Number(
+              data.amount
+            );
 
           data.customer_id =
-            data.customer_id
-              ? Number(
-                  data.customer_id
-                )
-              : null;
+            Number(
+              data.customer_id
+            );
 
           try {
             await api(
@@ -2041,7 +3267,9 @@
               {
                 method: "POST",
                 body:
-                  JSON.stringify(data)
+                  JSON.stringify(
+                    data
+                  )
               }
             );
 
@@ -2052,7 +3280,9 @@
 
             navigate("debts");
           } catch (error) {
-            alert(error.message);
+            alert(
+              error.message
+            );
           }
         }
       );
@@ -2070,21 +3300,43 @@
 
     const value =
       prompt(
-        `Montant du paiement (reste ${money(
+        `${t(
+          "remaining"
+        )}: ${money(
           debt.remaining
-        )}) :`
+        )}\n\nMontant du paiement :`
       );
 
-    if (value === null) return;
+    if (
+      value === null
+    ) {
+      return;
+    }
 
     const amount =
       Number(value);
 
     if (
-      !Number.isFinite(amount) ||
+      !Number.isFinite(
+        amount
+      ) ||
       amount <= 0
     ) {
-      alert("Montant invalide.");
+      alert(
+        "Montant invalide."
+      );
+      return;
+    }
+
+    if (
+      amount >
+      Number(
+        debt.remaining
+      )
+    ) {
+      alert(
+        "Le paiement dépasse le montant restant."
+      );
       return;
     }
 
@@ -2111,40 +3363,170 @@
     }
   }
 
-  /* =====================================================
-     REPORTS
-  ===================================================== */
-
-  async function renderReports() {
+  async function showDebtHistory(id) {
     try {
-      state.reports =
-        await api("/api/reports");
-
-      const total =
-        state.reports.reduce(
-          (sum, row) =>
-            sum +
-            Number(row.total || 0),
-          0
+      const payments =
+        await api(
+          `/api/debts/${id}/payments`
         );
 
-      const count =
-        state.reports.reduce(
-          (sum, row) =>
-            sum +
-            Number(
-              row.sales_count || 0
-            ),
-          0
+      const debt =
+        state.debts.find(
+          item =>
+            Number(item.id) ===
+            Number(id)
         );
 
       content.innerHTML = `
         <div class="page-head">
           <div>
-            <span class="eyebrow">ANALYSE</span>
-            <h2>Rapports</h2>
+            <span class="eyebrow">
+              ${escapeHTML(
+                t("debts")
+              )}
+            </span>
+
+            <h2>
+              ${escapeHTML(
+                t(
+                  "paymentHistory"
+                )
+              )}
+            </h2>
+
             <p>
-              Analyse des ventes sur les derniers jours.
+              ${escapeHTML(
+                debt?.customer_name ||
+                  "Client"
+              )}
+            </p>
+          </div>
+
+          <button
+            class="secondary"
+            data-action="debts"
+          >
+            ${escapeHTML(
+              t("cancel")
+            )}
+          </button>
+        </div>
+
+        <div class="card">
+
+          ${
+            Array.isArray(
+              payments
+            ) &&
+            payments.length
+              ? `
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Montant</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      ${payments
+                        .map(
+                          payment => `
+                            <tr>
+                              <td>
+                                ${formatDate(
+                                  payment.created_at
+                                )}
+                              </td>
+
+                              <td>
+                                <strong>
+                                  ${money(
+                                    payment.amount
+                                  )}
+                                </strong>
+                              </td>
+                            </tr>
+                          `
+                        )
+                        .join("")}
+                    </tbody>
+                  </table>
+                </div>
+              `
+              : emptyState(
+                  t("noData"),
+                  t(
+                    "paymentHistory"
+                  )
+                )
+          }
+
+        </div>
+      `;
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  /* =====================================================
+     REPORTS
+  ===================================================== */
+
+  async function renderReports(
+    from = localDateInput(30),
+    to = localDateInput(0)
+  ) {
+    try {
+      const data =
+        await api(
+          `/api/reports?from=${encodeURIComponent(
+            from
+          )}&to=${encodeURIComponent(
+            to
+          )}`
+        );
+
+      state.reports = {
+        from:
+          data.from || from,
+        to:
+          data.to || to,
+        rows:
+          Array.isArray(
+            data.rows
+          )
+            ? data.rows
+            : [],
+        summary:
+          data.summary || {
+            total: 0,
+            count: 0
+          }
+      };
+
+      content.innerHTML = `
+        <div class="page-head">
+          <div>
+            <span class="eyebrow">
+              ${escapeHTML(
+                t("reports")
+              )}
+            </span>
+
+            <h2>
+              ${escapeHTML(
+                t("reportsTitle")
+              )}
+            </h2>
+
+            <p>
+              ${escapeHTML(
+                t(
+                  "reportsDescription"
+                )
+              )}
             </p>
           </div>
 
@@ -2153,55 +3535,128 @@
               class="secondary"
               data-action="export-csv"
             >
-              Export CSV
+              ${escapeHTML(
+                t("exportCSV")
+              )}
             </button>
 
             <button
               class="secondary"
               data-action="export-pdf"
             >
-              Export PDF
+              ${escapeHTML(
+                t("exportPDF")
+              )}
             </button>
           </div>
         </div>
 
-        <div class="card-grid">
+        <div class="card">
 
-          <div class="card stat-card">
-            <div class="stat-label">
-              Chiffre d'affaires
-            </div>
-            <div class="stat-value">
-              ${money(total)}
-            </div>
-            <div class="stat-meta">
-              Période affichée
-            </div>
-          </div>
+          <form
+            id="reportFilter"
+            class="form-grid"
+          >
 
-          <div class="card stat-card">
-            <div class="stat-label">
-              Nombre de ventes
+            <div class="field">
+              <label>
+                ${escapeHTML(
+                  t("from")
+                )}
+
+                <input
+                  name="from"
+                  type="date"
+                  value="${escapeHTML(
+                    state.reports
+                      .from
+                  )}"
+                  required
+                >
+              </label>
             </div>
-            <div class="stat-value">
-              ${count}
+
+            <div class="field">
+              <label>
+                ${escapeHTML(
+                  t("to")
+                )}
+
+                <input
+                  name="to"
+                  type="date"
+                  value="${escapeHTML(
+                    state.reports
+                      .to
+                  )}"
+                  required
+                >
+              </label>
             </div>
-            <div class="stat-meta">
-              Transactions
+
+            <div class="form-actions">
+              <button
+                class="primary"
+                type="submit"
+              >
+                ${escapeHTML(
+                  t("apply")
+                )}
+              </button>
             </div>
-          </div>
+
+          </form>
 
         </div>
 
-        <div class="card" style="margin-top:15px">
+        <div class="card-grid">
+
+          ${statCard(
+            t("revenue"),
+            money(
+              state.reports
+                .summary.total
+            ),
+            `${state.reports.from} → ${state.reports.to}`
+          )}
+
+          ${statCard(
+            t("transactions"),
+            state.reports
+              .summary.count,
+            "Ventes"
+          )}
+
+        </div>
+
+        <div
+          class="card"
+          style="margin-top:15px"
+        >
 
           <div class="card-header">
-            <h3>Ventes par jour</h3>
-            <span>31 derniers jours disponibles</span>
+            <h3>
+              ${escapeHTML(
+                t("salesPerDay")
+              )}
+            </h3>
+
+            <span>
+              ${escapeHTML(
+                state.reports
+                  .from
+              )}
+              →
+              ${escapeHTML(
+                state.reports
+                  .to
+              )}
+            </span>
           </div>
 
           ${
-            state.reports.length
+            state.reports
+              .rows.length
               ? `
                 <div class="table-wrap">
                   <table>
@@ -2214,42 +3669,85 @@
                     </thead>
 
                     <tbody>
-                      ${state.reports.map(
-                        row => `
-                          <tr>
-                            <td>
-                              ${formatDate(
-                                row.day
-                              )}
-                            </td>
-                            <td>
-                              ${row.sales_count}
-                            </td>
-                            <td>
-                              <strong>
-                                ${money(
-                                  row.total
+                      ${state.reports
+                        .rows
+                        .map(
+                          row => `
+                            <tr>
+                              <td>
+                                ${formatDate(
+                                  row.day
                                 )}
-                              </strong>
-                            </td>
-                          </tr>
-                        `
-                      ).join("")}
+                              </td>
+
+                              <td>
+                                ${row.sales_count}
+                              </td>
+
+                              <td>
+                                <strong>
+                                  ${money(
+                                    row.total
+                                  )}
+                                </strong>
+                              </td>
+                            </tr>
+                          `
+                        )
+                        .join("")}
                     </tbody>
                   </table>
                 </div>
               `
               : emptyState(
-                  "Aucune donnée",
-                  "Créez des ventes pour générer vos rapports."
+                  t("noData"),
+                  t(
+                    "reportsDescription"
+                  )
                 )
           }
 
         </div>
       `;
+
+      $("#reportFilter")
+        ?.addEventListener(
+          "submit",
+          async event => {
+            event.preventDefault();
+
+            const form =
+              new FormData(
+                event.currentTarget
+              );
+
+            const nextFrom =
+              form.get("from");
+
+            const nextTo =
+              form.get("to");
+
+            if (
+              nextFrom >
+              nextTo
+            ) {
+              alert(
+                "La date de début doit être avant la date de fin."
+              );
+              return;
+            }
+
+            await renderReports(
+              nextFrom,
+              nextTo
+            );
+          }
+        );
     } catch (error) {
       content.innerHTML =
-        errorState(error.message);
+        errorState(
+          error.message
+        );
     }
   }
 
@@ -2258,13 +3756,27 @@
   ===================================================== */
 
   function renderSubscription() {
+    const current =
+      state.user.plan ||
+      "free";
+
     content.innerHTML = `
       <div class="page-head">
         <div>
-          <span class="eyebrow">CASHFLOW</span>
-          <h2>Choisissez votre plan</h2>
+          <span class="eyebrow">
+            CASHFLOW
+          </span>
+
+          <h2>
+            ${escapeHTML(
+              t("choosePlan")
+            )}
+          </h2>
+
           <p>
-            Évoluez avec votre activité.
+            ${escapeHTML(
+              t("grow")
+            )}
           </p>
         </div>
       </div>
@@ -2283,7 +3795,7 @@
             "1 appareil",
             "Support e-mail"
           ],
-          state.user.plan === "free"
+          current === "free"
         )}
 
         ${priceCard(
@@ -2293,14 +3805,14 @@
           [
             "Produits illimités",
             "Clients illimités",
-            "Suivi des ventes et du stock",
+            "Ventes et stock",
             "Dettes clients",
-            "Rapports avancés",
+            "Rapports",
             "Export CSV",
             "Sauvegarde cloud",
             "Support prioritaire"
           ],
-          state.user.plan === "pro",
+          current === "pro",
           true
         )}
 
@@ -2311,31 +3823,46 @@
           [
             "Tout Pro",
             "Historique complet",
-            "Gestion avancée des ventes",
+            "Gestion avancée",
             "Rapports détaillés",
             "Export CSV + PDF",
             "Multi-appareils",
             "Sauvegarde cloud",
             "Support prioritaire"
           ],
-          state.user.plan === "elite"
+          current === "elite"
         )}
 
       </div>
 
-      <div class="card" style="margin-top:16px">
-        <strong>Votre plan actuel :</strong>
+      <div
+        class="card"
+        style="margin-top:16px"
+      >
+        <strong>
+          ${escapeHTML(
+            t("currentPlan")
+          )} :
+        </strong>
+
         ${escapeHTML(
-          state.user.plan === "elite"
+          current === "elite"
             ? "Élite"
-            : state.user.plan === "pro"
+            : current === "pro"
             ? "Pro"
             : "Gratuit"
         )}
 
-        <p style="color:var(--muted);font-size:.8rem">
-          Les paiements en ligne ne sont pas encore connectés.
-          Cette page présente les offres disponibles.
+        <p style="
+          color:var(--muted);
+          font-size:.82rem;
+          margin-bottom:0
+        ">
+          ${escapeHTML(
+            t(
+              "paymentsUnavailable"
+            )
+          )}
         </p>
       </div>
     `;
@@ -2351,44 +3878,62 @@
   ) {
     return `
       <div class="price-card ${
-        featured ? "featured" : ""
+        featured
+          ? "featured"
+          : ""
       }">
 
         ${
           featured
             ? `
               <span class="badge">
-                RECOMMANDÉ
+                ${escapeHTML(
+                  t("recommended")
+                )}
               </span>
             `
             : ""
         }
 
-        <h3 style="margin-top:${
-          featured ? "12px" : "0"
-        }">
-          ${name}
+        <h3 style="
+          margin-top:${
+            featured
+              ? "12px"
+              : "0"
+          }
+        ">
+          ${escapeHTML(
+            name
+          )}
         </h3>
 
         <div class="price">
-          $${price}
-          <small>/ mois</small>
+          $${escapeHTML(
+            price
+          )}
+          <small>
+            / mois
+          </small>
         </div>
 
         <p style="
           color:var(--muted);
-          font-size:.8rem;
+          font-size:.82rem;
         ">
-          ${description}
+          ${escapeHTML(
+            description
+          )}
         </p>
 
         <ul>
-          ${features.map(
-            feature =>
-              `<li>${escapeHTML(
-                feature
-              )}</li>`
-          ).join("")}
+          ${features
+            .map(
+              feature =>
+                `<li>${escapeHTML(
+                  feature
+                )}</li>`
+            )
+            .join("")}
         </ul>
 
         <button
@@ -2406,11 +3951,15 @@
           }
           data-action="plan-info"
         >
-          ${
+          ${escapeHTML(
             active
-              ? "Plan actuel"
-              : "Choisir ce plan"
-          }
+              ? t(
+                  "currentPlanButton"
+                )
+              : t(
+                  "choosePlanButton"
+                )
+          )}
         </button>
 
       </div>
@@ -2434,10 +3983,24 @@
     content.innerHTML = `
       <div class="page-head">
         <div>
-          <span class="eyebrow">COMPTE</span>
-          <h2>Mon profil</h2>
+          <span class="eyebrow">
+            ${escapeHTML(
+              t("account")
+            )}
+          </span>
+
+          <h2>
+            ${escapeHTML(
+              t("profile")
+            )}
+          </h2>
+
           <p>
-            Gérez vos informations personnelles.
+            ${escapeHTML(
+              t(
+                "manageProfile"
+              )
+            )}
           </p>
         </div>
       </div>
@@ -2479,7 +4042,9 @@
               class="upload-button"
               style="cursor:pointer"
             >
-              Changer la photo
+              ${escapeHTML(
+                t("changePhoto")
+              )}
 
               <input
                 id="avatarInput"
@@ -2500,12 +4065,16 @@
 
           <div class="field">
             <label>
-              Nom complet
+              ${escapeHTML(
+                t("fullName")
+              )}
+
               <input
                 name="name"
                 required
                 value="${escapeHTML(
-                  state.user.name || ""
+                  state.user.name ||
+                    ""
                 )}"
               >
             </label>
@@ -2513,10 +4082,14 @@
 
           <div class="field">
             <label>
-              E-mail
+              ${escapeHTML(
+                t("email")
+              )}
+
               <input
                 value="${escapeHTML(
-                  state.user.email || ""
+                  state.user.email ||
+                    ""
                 )}"
                 disabled
               >
@@ -2525,24 +4098,31 @@
 
           <div class="field">
             <label>
-              Téléphone
+              ${escapeHTML(
+                t("phone")
+              )}
+
               <input
                 name="phone"
                 value="${escapeHTML(
-                  state.user.phone || ""
+                  state.user.phone ||
+                    ""
                 )}"
-                placeholder="+243..."
               >
             </label>
           </div>
 
           <div class="field">
             <label>
-              Nom de la boutique
+              ${escapeHTML(
+                t("shopName")
+              )}
+
               <input
                 name="shop_name"
                 value="${escapeHTML(
-                  state.user.shop_name || ""
+                  state.user.shop_name ||
+                    ""
                 )}"
               >
             </label>
@@ -2553,7 +4133,9 @@
               type="submit"
               class="primary"
             >
-              Enregistrer
+              ${escapeHTML(
+                t("save")
+              )}
             </button>
           </div>
 
@@ -2565,24 +4147,35 @@
         class="card"
         style="margin-top:15px"
       >
+
         <div class="card-header">
-          <h3>Zone sensible</h3>
-          <span>Suppression définitive</span>
+          <h3>
+            ${escapeHTML(
+              t("sensitiveArea")
+            )}
+          </h3>
         </div>
 
         <p style="
           color:var(--muted);
           font-size:.82rem;
         ">
-          La suppression du compte efface vos données associées.
+          ${escapeHTML(
+            t(
+              "deleteAccountDescription"
+            )
+          )}
         </p>
 
         <button
           class="secondary danger"
           data-action="delete-account"
         >
-          Supprimer mon compte
+          ${escapeHTML(
+            t("deleteAccount")
+          )}
         </button>
+
       </div>
     `;
 
@@ -2599,7 +4192,9 @@
       );
   }
 
-  async function saveProfile(event) {
+  async function saveProfile(
+    event
+  ) {
     event.preventDefault();
 
     const data =
@@ -2616,7 +4211,9 @@
           {
             method: "PUT",
             body:
-              JSON.stringify(data)
+              JSON.stringify(
+                data
+              )
           }
         );
 
@@ -2625,21 +4222,36 @@
 
       updateUserUI();
 
-      alert(
-        "Profil mis à jour."
-      );
-
       renderProfile();
     } catch (error) {
       alert(error.message);
     }
   }
 
-  async function uploadAvatar(event) {
+  async function uploadAvatar(
+    event
+  ) {
     const file =
       event.target.files?.[0];
 
-    if (!file) return;
+    if (!file) {
+      return;
+    }
+
+    if (
+      ![
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+      ].includes(
+        file.type
+      )
+    ) {
+      alert(
+        "Format d'image non pris en charge."
+      );
+      return;
+    }
 
     const form =
       new FormData();
@@ -2676,7 +4288,9 @@
         "Entrez votre mot de passe pour confirmer la suppression du compte :"
       );
 
-    if (password === null) {
+    if (
+      password === null
+    ) {
       return;
     }
 
@@ -2709,11 +4323,11 @@
 
       state.user = null;
 
-      appView.classList.add(
+      appView?.classList.add(
         "hidden"
       );
 
-      authView.classList.remove(
+      authView?.classList.remove(
         "hidden"
       );
 
@@ -2733,7 +4347,8 @@
 
   async function renderAdmin() {
     if (
-      state.user.role !== "admin"
+      state.user.role !==
+      "admin"
     ) {
       navigate("dashboard");
       return;
@@ -2744,60 +4359,63 @@
         stats,
         users
       ] = await Promise.all([
-        api("/api/admin/stats"),
-        api("/api/admin/users")
+        api(
+          "/api/admin/stats"
+        ),
+        api(
+          "/api/admin/users"
+        )
       ]);
 
       content.innerHTML = `
         <div class="page-head">
           <div>
-            <span class="eyebrow">ADMIN</span>
-            <h2>Administration</h2>
+            <span class="eyebrow">
+              ADMIN
+            </span>
+
+            <h2>
+              ${escapeHTML(
+                t("admin")
+              )}
+            </h2>
+
             <p>
-              Gestion privée de CashFlow.
+              ${escapeHTML(
+                t("adminPrivate")
+              )}
             </p>
           </div>
         </div>
 
         <div class="card-grid">
 
-          <div class="card stat-card">
-            <div class="stat-label">
-              Utilisateurs
-            </div>
-            <div class="stat-value">
-              ${stats.users}
-            </div>
-          </div>
+          ${statCard(
+            t("users"),
+            stats.users || 0,
+            ""
+          )}
 
-          <div class="card stat-card">
-            <div class="stat-label">
-              Utilisateurs actifs
-            </div>
-            <div class="stat-value">
-              ${stats.active}
-            </div>
-          </div>
+          ${statCard(
+            t("activeUsers"),
+            stats.active || 0,
+            ""
+          )}
 
-          <div class="card stat-card">
-            <div class="stat-label">
-              Nombre de ventes
-            </div>
-            <div class="stat-value">
-              ${stats.sales.count}
-            </div>
-          </div>
+          ${statCard(
+            t("transactions"),
+            stats.sales?.count ||
+              0,
+            ""
+          )}
 
-          <div class="card stat-card">
-            <div class="stat-label">
-              Chiffre d'affaires
-            </div>
-            <div class="stat-value">
-              ${money(
-                stats.sales.total
-              )}
-            </div>
-          </div>
+          ${statCard(
+            t("revenue"),
+            money(
+              stats.sales?.total
+            ),
+            ""
+          )}
 
         </div>
 
@@ -2807,189 +4425,259 @@
         >
 
           <div class="card-header">
-            <h3>Utilisateurs</h3>
-            <span>Accès administrateur</span>
+            <h3>
+              ${escapeHTML(
+                t("users")
+              )}
+            </h3>
+
+            <span>
+              ${escapeHTML(
+                t("admin")
+              )}
+            </span>
           </div>
 
           <div class="table-wrap">
             <table>
+
               <thead>
                 <tr>
-                  <th>Nom</th>
-                  <th>E-mail</th>
+                  <th>${escapeHTML(
+                    t("name")
+                  )}</th>
+                  <th>${escapeHTML(
+                    t("email")
+                  )}</th>
                   <th>Plan</th>
-                  <th>Rôle</th>
-                  <th>État</th>
-                  <th>Actions</th>
+                  <th>${escapeHTML(
+                    t("role")
+                  )}</th>
+                  <th>${escapeHTML(
+                    t("state")
+                  )}</th>
+                  <th>${escapeHTML(
+                    t("actions")
+                  )}</th>
                 </tr>
               </thead>
 
               <tbody>
-                ${users.map(
-                  user => `
-                    <tr>
-                      <td>
-                        ${escapeHTML(
-                          user.name
-                        )}
-                      </td>
-
-                      <td>
-                        ${escapeHTML(
+                ${users
+                  .map(
+                    user => {
+                      const isPrincipal =
+                        String(
                           user.email
-                        )}
-                      </td>
+                        ).toLowerCase() ===
+                        String(
+                          state.config.adminEmail ||
+                            "gestontech@gmail.com"
+                        ).toLowerCase();
 
-                      <td>
-                        <select
-                          data-admin-plan
-                          data-id="${user.id}"
-                        >
-                          ${[
-                            "free",
-                            "pro",
-                            "elite"
-                          ].map(
-                            plan => `
-                              <option
-                                value="${plan}"
-                                ${
-                                  user.plan ===
-                                  plan
-                                    ? "selected"
-                                    : ""
-                                }
-                              >
-                                ${plan}
-                              </option>
-                            `
-                          ).join("")}
-                        </select>
-                      </td>
-
-                      <td>
-                        ${
-                          user.email.toLowerCase() ===
-                          state.config.adminEmail
-                            ? "admin"
-                            : `
-                              <select
-                                data-admin-role
-                                data-id="${user.id}"
-                              >
-                                <option
-                                  value="user"
-                                  ${
-                                    user.role ===
-                                    "user"
-                                      ? "selected"
-                                      : ""
-                                  }
-                                >
-                                  user
-                                </option>
-
-                                <option
-                                  value="admin"
-                                  ${
-                                    user.role ===
-                                    "admin"
-                                      ? "selected"
-                                      : ""
-                                  }
-                                >
-                                  admin
-                                </option>
-                              </select>
-                            `
-                        }
-                      </td>
-
-                      <td>
-                        ${
+                      const active =
+                        Number(
                           user.active
-                            ? `
-                              <span class="badge">
-                                Actif
-                              </span>
-                            `
-                            : `
-                              <span class="badge danger">
-                                Désactivé
-                              </span>
-                            `
-                        }
-                      </td>
+                        ) === 1 ||
+                        user.active ===
+                          true;
 
-                      <td>
-                        <button
-                          class="secondary"
-                          data-action="toggle-user"
-                          data-id="${user.id}"
-                          data-active="${
-                            user.active
-                          }"
-                        >
-                          ${
-                            user.active
-                              ? "Désactiver"
-                              : "Activer"
-                          }
-                        </button>
+                      return `
+                        <tr>
 
-                        ${
-                          user.email.toLowerCase() !==
-                          "gestontech@gmail.com"
-                            ? `
-                              <button
-                                class="secondary danger"
-                                data-action="admin-delete-user"
-                                data-id="${user.id}"
-                              >
-                                Supprimer
-                              </button>
-                            `
-                            : ""
-                        }
-                      </td>
-                    </tr>
-                  `
-                ).join("")}
+                          <td>
+                            ${escapeHTML(
+                              user.name
+                            )}
+                          </td>
+
+                          <td>
+                            ${escapeHTML(
+                              user.email
+                            )}
+                          </td>
+
+                          <td>
+                            <select
+                              data-admin-plan
+                              data-id="${user.id}"
+                              ${
+                                isPrincipal
+                                  ? "disabled"
+                                  : ""
+                              }
+                            >
+                              ${[
+                                "free",
+                                "pro",
+                                "elite"
+                              ]
+                                .map(
+                                  plan => `
+                                    <option
+                                      value="${plan}"
+                                      ${
+                                        user.plan ===
+                                        plan
+                                          ? "selected"
+                                          : ""
+                                      }
+                                    >
+                                      ${plan}
+                                    </option>
+                                  `
+                                )
+                                .join("")}
+                            </select>
+                          </td>
+
+                          <td>
+                            ${
+                              isPrincipal
+                                ? `
+                                  <span class="badge">
+                                    admin
+                                  </span>
+                                `
+                                : `
+                                  <select
+                                    data-admin-role
+                                    data-id="${user.id}"
+                                  >
+                                    <option
+                                      value="user"
+                                      ${
+                                        user.role ===
+                                        "user"
+                                          ? "selected"
+                                          : ""
+                                      }
+                                    >
+                                      user
+                                    </option>
+
+                                    <option
+                                      value="admin"
+                                      ${
+                                        user.role ===
+                                        "admin"
+                                          ? "selected"
+                                          : ""
+                                      }
+                                    >
+                                      admin
+                                    </option>
+                                  </select>
+                                `
+                            }
+                          </td>
+
+                          <td>
+                            ${
+                              active
+                                ? `
+                                  <span class="badge">
+                                    Actif
+                                  </span>
+                                `
+                                : `
+                                  <span class="badge danger">
+                                    Désactivé
+                                  </span>
+                                `
+                            }
+                          </td>
+
+                          <td>
+
+                            ${
+                              isPrincipal
+                                ? `
+                                  <span class="badge">
+                                    Principal
+                                  </span>
+                                `
+                                : `
+                                  <button
+                                    class="secondary"
+                                    data-action="toggle-user"
+                                    data-id="${user.id}"
+                                    data-active="${active}"
+                                  >
+                                    ${
+                                      active
+                                        ? t(
+                                            "deactivate"
+                                          )
+                                        : t(
+                                            "activate"
+                                          )
+                                    }
+                                  </button>
+
+                                  <button
+                                    class="secondary danger"
+                                    data-action="admin-delete-user"
+                                    data-id="${user.id}"
+                                  >
+                                    ${escapeHTML(
+                                      t(
+                                        "delete"
+                                      )
+                                    )}
+                                  </button>
+                                `
+                            }
+
+                          </td>
+
+                        </tr>
+                      `;
+                    }
+                  )
+                  .join("")}
               </tbody>
+
             </table>
           </div>
 
         </div>
       `;
 
-      $$("[data-admin-plan]")
-        .forEach(select => {
-          select.addEventListener(
-            "change",
-            () =>
-              updateAdminUser(
-                select.dataset.id
-              )
-          );
-        });
+      $$(
+        "[data-admin-plan]"
+      ).forEach(select => {
+        select.addEventListener(
+          "change",
+          () =>
+            updateAdminUser(
+              select.dataset.id
+            )
+        );
+      });
 
-      $$("[data-admin-role]")
-        .forEach(select => {
-          select.addEventListener(
-            "change",
-            () =>
-              updateAdminUser(
-                select.dataset.id
-              )
-          );
-        });
+      $$(
+        "[data-admin-role]"
+      ).forEach(select => {
+        select.addEventListener(
+          "change",
+          () =>
+            updateAdminUser(
+              select.dataset.id
+            )
+        );
+      });
     } catch (error) {
       content.innerHTML =
-        errorState(error.message);
+        errorState(
+          error.message
+        );
     }
   }
 
-  async function updateAdminUser(id) {
+  async function updateAdminUser(
+    id
+  ) {
     const plan =
       $(
         `[data-admin-plan][data-id="${id}"]`
@@ -3000,24 +4688,31 @@
         `[data-admin-role][data-id="${id}"]`
       )?.value;
 
+    const body = {};
+
+    if (plan) {
+      body.plan =
+        plan;
+    }
+
+    if (role) {
+      body.role =
+        role;
+    }
+
     try {
       await api(
         `/api/admin/users/${id}`,
         {
           method: "PUT",
           body:
-            JSON.stringify({
-              plan,
-              role
-            })
+            JSON.stringify(
+              body
+            )
         }
       );
 
-      alert(
-        "Utilisateur mis à jour."
-      );
-
-      renderAdmin();
+      await renderAdmin();
     } catch (error) {
       alert(error.message);
     }
@@ -3040,13 +4735,15 @@
         }
       );
 
-      renderAdmin();
+      await renderAdmin();
     } catch (error) {
       alert(error.message);
     }
   }
 
-  async function adminDeleteUser(id) {
+  async function adminDeleteUser(
+    id
+  ) {
     if (
       !confirm(
         "Supprimer définitivement cet utilisateur ?"
@@ -3063,7 +4760,7 @@
         }
       );
 
-      renderAdmin();
+      await renderAdmin();
     } catch (error) {
       alert(error.message);
     }
@@ -3081,11 +4778,15 @@
       <div class="empty">
         <div>
           <strong>
-            ${escapeHTML(title)}
+            ${escapeHTML(
+              title
+            )}
           </strong>
 
           <span>
-            ${escapeHTML(text)}
+            ${escapeHTML(
+              text
+            )}
           </span>
         </div>
       </div>
@@ -3099,11 +4800,15 @@
       <div class="card empty">
         <div>
           <strong>
-            Impossible de charger cette page
+            ${escapeHTML(
+              t("error")
+            )}
           </strong>
 
           <span>
-            ${escapeHTML(text)}
+            ${escapeHTML(
+              text
+            )}
           </span>
         </div>
       </div>
@@ -3147,7 +4852,7 @@
         );
 
       if (navButton) {
-        navigate(
+        await navigate(
           navButton.dataset.page
         );
         return;
@@ -3158,7 +4863,9 @@
           "[data-action]"
         );
 
-      if (!action) return;
+      if (!action) {
+        return;
+      }
 
       const name =
         action.dataset.action;
@@ -3168,24 +4875,50 @@
           newSale();
           break;
 
+        case "add-sale-row":
+          addSaleRow();
+          break;
+
         case "sales":
-          navigate("sales");
+          await navigate(
+            "sales"
+          );
           break;
 
         case "products":
-          navigate("products");
+          await navigate(
+            "products"
+          );
           break;
 
         case "customers":
-          navigate("customers");
+          await navigate(
+            "customers"
+          );
           break;
 
         case "debts":
-          navigate("debts");
+          await navigate(
+            "debts"
+          );
+          break;
+
+        case "reports":
+          await navigate(
+            "reports"
+          );
           break;
 
         case "subscription":
-          navigate("subscription");
+          await navigate(
+            "subscription"
+          );
+          break;
+
+        case "profile":
+          await navigate(
+            "profile"
+          );
           break;
 
         case "add-product":
@@ -3196,14 +4929,18 @@
           const product =
             state.products.find(
               item =>
-                Number(item.id) ===
+                Number(
+                  item.id
+                ) ===
                 Number(
                   action.dataset.id
                 )
             );
 
           if (product) {
-            productForm(product);
+            productForm(
+              product
+            );
           }
 
           break;
@@ -3219,6 +4956,27 @@
           customerForm();
           break;
 
+        case "edit-customer": {
+          const customer =
+            state.customers.find(
+              item =>
+                Number(
+                  item.id
+                ) ===
+                Number(
+                  action.dataset.id
+                )
+            );
+
+          if (customer) {
+            customerForm(
+              customer
+            );
+          }
+
+          break;
+        }
+
         case "delete-customer":
           await deleteCustomer(
             action.dataset.id
@@ -3231,6 +4989,18 @@
 
         case "pay-debt":
           await payDebt(
+            action.dataset.id
+          );
+          break;
+
+        case "debt-history":
+          await showDebtHistory(
+            action.dataset.id
+          );
+          break;
+
+        case "sale-detail":
+          await showSaleDetail(
             action.dataset.id
           );
           break;
@@ -3251,9 +5021,9 @@
           await toggleUser(
             action.dataset.id,
             action.dataset.active ===
-              "1" ||
+              "true" ||
               action.dataset.active ===
-              "true"
+              "1"
           );
           break;
 
@@ -3265,7 +5035,9 @@
 
         case "plan-info":
           alert(
-            "Le paiement en ligne sera disponible après connexion d'un fournisseur de paiement."
+            t(
+              "paymentsUnavailable"
+            )
           );
           break;
       }
@@ -3299,42 +5071,35 @@
   $("#avatarBtn")
     ?.addEventListener(
       "click",
-      () => navigate("profile")
+      () =>
+        navigate(
+          "profile"
+        )
     );
 
   /* =====================================================
-     LANGUAGE
+     SYSTEM THEME
   ===================================================== */
 
-  function setupLanguage() {
-    const saved =
-      localStorage.getItem(
-        "cashflow-lang"
+  if (
+    window.matchMedia
+  ) {
+    const media =
+      window.matchMedia(
+        "(prefers-color-scheme: dark)"
       );
 
-    const browser =
-      (
-        navigator.language ||
-        "fr"
-      ).slice(0, 2);
-
-    const supported = [
-      "fr",
-      "en",
-      "pt",
-      "es"
-    ];
-
-    const language =
-      saved ||
-      (
-        supported.includes(browser)
-          ? browser
-          : "fr"
-      );
-
-    document.documentElement.lang =
-      language;
+    media.addEventListener?.(
+      "change",
+      () => {
+        if (
+          getSavedTheme() ===
+          "system"
+        ) {
+          applyTheme();
+        }
+      }
+    );
   }
 
   /* =====================================================
@@ -3342,13 +5107,17 @@
   ===================================================== */
 
   async function start() {
-    setupLanguage();
+    detectLanguage();
+
+    refreshStaticLanguage();
 
     applyTheme();
 
     switchAuth("login");
 
     await loadConfig();
+
+    refreshStaticLanguage();
 
     await checkSession();
   }
