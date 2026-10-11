@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="CashFlow — gestion commerciale professionnelle">
+  <title>CashFlow</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+
+<body>
+
+<div id="app">
+
+  <!-- AUTHENTIFICATION -->
+  <section id="authView" class="auth-shell">
+
+    <div class="auth-card glass">
+
+      <div class="brand">
+        <span class="logo">C</span>
+
+        <div>
+          <strong>CashFlow</strong>
+          <small>Gestion commerciale</small>
+        </div>
+      </div>
+
+      <div class="auth-intro">
+        <span class="eyebrow">CASHFLOW</span>
+        <h1>Gérez votre activité simplement.</h1>
+        <p>
+          Produits, ventes, stock, clients, dettes et rapports
+          dans une seule application.
+        </p>
+      </div>
+
+      <div class="tabs">
+        <button
+          type="button"
+          class="active"
+          data-auth="login"
+        >
+          Connexion
+        </button>
+
+        <button
+          type="button"
+          data-auth="register"
+        >
+          Créer un compte
+        </button>
+      </div>
+
+      <!-- CONNEXION -->
+      <form id="loginForm" class="auth-form">
+
+        <label>
+          E-mail
+          <input
+            name="email"
+            type="email"
+            autocomplete="email"
+            placeholder="vous@example.com"
+            required
+          >
+        </label>
+
+        <label>
+          Mot de passe
+          <input
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="••••••••"
+            required
+          >
+        </label>
+
+        <button
+          type="submit"
+          class="primary"
+        >
+          Se connecter
+        </button>
+
+      </form>
+
+      <!-- INSCRIPTION -->
+      <form
+        id="registerForm"
+        class="auth-form hidden"
+      >
+
+        <label>
+          Nom complet
+          <input
+            name="name"
+            autocomplete="name"
+            placeholder="Votre nom"
+            required
+          >
+        </label>
+
+        <label>
+          E-mail
+          <input
+            name="email"
+            type="email"
+            autocomplete="email"
+            placeholder="vous@example.com"
+            required
+          >
+        </label>
+
+        <label>
+          Téléphone
+          <input
+            name="phone"
+            autocomplete="tel"
+            placeholder="+243..."
+          >
+        </label>
+
+        <label>
+          Nom de la boutique
+          <input
+            name="shop_name"
+            placeholder="Ma boutique"
+          >
+        </label>
+
+        <label>
+          Mot de passe
+          <input
+            name="password"
+            type="password"
+            autocomplete="new-password"
+            minlength="8"
+            placeholder="Minimum 8 caractères"
+            required
+          >
+        </label>
+
+        <button
+          type="submit"
+          class="primary"
+        >
+          Créer mon compte
+        </button>
+
+      </form>
+
+      <p
+        id="authMessage"
+        class="message"
+      ></p>
+
+      <div class="support">
+        <span>Besoin d'aide ?</span>
+        <a
+          id="waAuth"
+          href="#"
+          target="_blank"
+          rel="noopener"
+        >
+          WhatsApp
+        </a>
+        <span>·</span>
+        <a
+          id="mailAuth"
+          href="#"
+        >
+          E-mail
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- APPLICATION -->
+  <section
+    id="appView"
+    class="hidden"
+  >
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar glass">
+
+      <div class="brand">
+
+        <span class="logo">C</span>
+
+        <div>
+          <strong>CashFlow</strong>
+          <small id="shopLabel">Ma boutique</small>
+        </div>
+
+      </div>
+
+
+      <nav id="nav">
+
+        <button
+          type="button"
+          class="active"
+          data-page="dashboard"
+        >
+          <span class="nav-icon">⌂</span>
+          <span>Tableau de bord</span>
+        </button>
+
+        <button
+          type="button"
+          data-page="products"
+        >
+          <span class="nav-icon">▦</span>
+          <span>Produits & stock</span>
+        </button>
+
+        <button
+          type="button"
+          data-page="sales"
+        >
+          <span class="nav-icon">↗</span>
+          <span>Ventes</span>
+        </button>
+
+        <button
+          type="button"
+          data-page="customers"
+        >
+          <span class="nav-icon">♙</span>
+          <span>Clients</span>
+        </button>
+
+        <button
+          type="button"
+          data-page="debts"
+        >
+          <span class="nav-icon">◷</span>
+          <span>Dettes</span>
+        </button>
+
+        <button
+          type="button"
+          data-page="reports"
+        >
+          <span class="nav-icon">▤</span>
+          <span>Rapports</span>
+        </button>
+
+        <button
+          type="button"
+          data-page="subscription"
+        >
+          <span class="nav-icon">◆</span>
+          <span>Abonnement</span>
+        </button>
+
+        <button
+          type="button"
+          data-page="profile"
+        >
+          <span class="nav-icon">⚙</span>
+          <span>Mon profil</span>
+        </button>
+
+        <button
+          type="button"
+          data-page="admin"
+          id="adminNav"
+          class="hidden"
+        >
+          <span class="nav-icon">♛</span>
+          <span>Administration</span>
+        </button>
+
+      </nav>
+
+
+      <div class="sidebar-bottom">
+
+        <a
+          id="waLink"
+          href="#"
+          target="_blank"
+          rel="noopener"
+        >
+          WhatsApp support
+        </a>
+
+        <a
+          id="mailLink"
+          href="#"
+        >
+          gestontech@gmail.com
+        </a>
+
+        <button
+          id="logout"
+          type="button"
+          class="ghost"
+        >
+          Se déconnecter
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="main">
+
+      <header class="topbar glass">
+
+        <div class="topbar-title">
+
+          <span class="eyebrow">CASHFLOW</span>
+
+          <h1 id="pageTitle">
+            Tableau de bord
+          </h1>
+
+        </div>
+
+        <div class="actions">
+
+          <button
+            id="themeBtn"
+            type="button"
+            class="icon"
+            title="Changer le thème"
+            aria-label="Changer le thème"
+          >
+            ◐
+          </button>
+
+          <button
+            id="avatarBtn"
+            type="button"
+            class="avatar"
+            title="Mon profil"
+            aria-label="Mon profil"
+          >
+            C
+          </button>
+
+        </div>
+
+      </header>
+
+
+      <div
+        id="content"
+        class="content"
+      ></div>
+
+    </main>
+
+  </section>
+
+</div>
+
+
+<script src="/assets/app.js"></script>
+
+</body>
+</html>
