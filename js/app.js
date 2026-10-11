@@ -1,0 +1,1 @@
+(()=>{const saved=localStorage.getItem('cashflow-lang');const supported=['fr','en','pt','es'];const lang=saved||((navigator.language||'fr').slice(0,2));document.documentElement.lang=supported.includes(lang)?lang:'fr';document.querySelectorAll('[data-i18n]').forEach(()=>{});})();
