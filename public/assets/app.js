@@ -5124,3 +5124,95 @@
 
   start();
 })();
+
+  /* =====================================================
+     REÇUS DE VENTE
+     Liaison avec public/assets/receipt.js
+  ===================================================== */
+
+  function addReceiptButtons(root = document) {
+    if (!root) return;
+
+    root.querySelectorAll(
+      '[data-action="sale-detail"][data-id]'
+    ).forEach(button => {
+      if (
+        button.parentElement?.querySelector(
+          '[data-action="sale-receipt"]'
+        )
+      ) {
+        return;
+      }
+
+      const receiptButton =
+        document.createElement("button");
+
+      receiptButton.type = "button";
+      receiptButton.className =
+        "secondary";
+      receiptButton.dataset.action =
+        "sale-receipt";
+      receiptButton.dataset.id =
+        button.dataset.id;
+      receiptButton.textContent =
+        "🧾 Reçu";
+
+      button.parentElement.appendChild(
+        receiptButton
+      );
+    });
+  }
+
+  document.addEventListener(
+    "click",
+    event => {
+      const button =
+        event.target.closest(
+          '[data-action="sale-receipt"]'
+        );
+
+      if (!button) return;
+
+      const saleId =
+        button.dataset.id;
+
+      if (
+        saleId &&
+        window.CashFlowReceipt &&
+        typeof window.CashFlowReceipt.show ===
+          "function"
+      ) {
+        window.CashFlowReceipt.show(
+          saleId
+        );
+      }
+    }
+  );
+
+  const receiptObserver =
+    new MutationObserver(() => {
+      addReceiptButtons(
+        document.querySelector(
+          "#content"
+        )
+      );
+    });
+
+  const contentForReceipt =
+    document.querySelector(
+      "#content"
+    );
+
+  if (contentForReceipt) {
+    receiptObserver.observe(
+      contentForReceipt,
+      {
+        childList: true,
+        subtree: true
+      }
+    );
+
+    addReceiptButtons(
+      contentForReceipt
+    );
+  }
