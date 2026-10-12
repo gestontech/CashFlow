@@ -1,0 +1,435 @@
+/* =========================================================
+   CASHFLOW — AUTH VISUALS
+   Illustrations organiques premium
+   Connexion ≠ Inscription
+   ========================================================= */
+
+.auth-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Zone graphique décorative */
+.auth-card::before {
+  content: "";
+  position: absolute;
+
+  width: 250px;
+  height: 250px;
+
+  right: -95px;
+  top: 105px;
+
+  border-radius:
+    61% 39% 47% 53% /
+    43% 55% 45% 57%;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(22, 163, 109, .20),
+      rgba(22, 163, 109, .04)
+    );
+
+  box-shadow:
+    inset 18px 0 0 rgba(255,255,255,.28),
+    inset 35px 0 0 rgba(22,163,109,.05);
+
+  transform: rotate(12deg);
+
+  pointer-events: none;
+
+  z-index: 0;
+}
+
+
+/* Deuxième forme organique */
+.auth-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 170px;
+  height: 220px;
+
+  right: -70px;
+  top: 130px;
+
+  border-radius:
+    54% 46% 63% 37% /
+    37% 62% 38% 63%;
+
+  border:
+    1px solid
+    rgba(22,163,109,.14);
+
+  background:
+    rgba(255,255,255,.12);
+
+  transform:
+    rotate(-18deg);
+
+  pointer-events: none;
+
+  z-index: 0;
+}
+
+
+/* Tout le contenu reste au-dessus */
+.auth-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* =========================================================
+   CONNEXION
+   Illustration : feuilles / croissance
+   ========================================================= */
+
+.auth-card:has(
+  .tabs button[data-auth="login"].active
+)::before {
+
+  width: 275px;
+  height: 275px;
+
+  right: -105px;
+  top: 95px;
+
+  border-radius:
+    72% 28% 61% 39% /
+    42% 62% 38% 58%;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(22,163,109,.23),
+      rgba(22,163,109,.045)
+    );
+
+  box-shadow:
+    inset -18px -12px 0
+      rgba(255,255,255,.18),
+    0 20px 55px
+      rgba(22,163,109,.08);
+
+  transform:
+    rotate(16deg);
+}
+
+
+/* Feuilles stylisées */
+.auth-card:has(
+  .tabs button[data-auth="login"].active
+)::after {
+
+  width: 145px;
+  height: 215px;
+
+  right: -24px;
+  top: 132px;
+
+  border: 0;
+
+  background:
+    radial-gradient(
+      ellipse at 50% 20%,
+      rgba(22,163,109,.34) 0 7%,
+      transparent 8%
+    ),
+    radial-gradient(
+      ellipse at 35% 38%,
+      rgba(22,163,109,.25) 0 8%,
+      transparent 9%
+    ),
+    radial-gradient(
+      ellipse at 65% 52%,
+      rgba(22,163,109,.20) 0 9%,
+      transparent 10%
+    ),
+    radial-gradient(
+      ellipse at 42% 72%,
+      rgba(22,163,109,.18) 0 8%,
+      transparent 9%
+    );
+
+  opacity: .8;
+
+  transform:
+    rotate(-20deg);
+}
+
+
+/* =========================================================
+   INSCRIPTION
+   Illustration : commerce / caisse / croissance
+   ========================================================= */
+
+.auth-card:has(
+  .tabs button[data-auth="register"].active
+)::before {
+
+  width: 285px;
+  height: 225px;
+
+  right: -90px;
+  top: 120px;
+
+  border-radius:
+    30px 70px 42px 76px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(22,163,109,.24),
+      rgba(22,163,109,.045)
+    );
+
+  box-shadow:
+    inset 0 1px 0
+      rgba(255,255,255,.45),
+    0 24px 60px
+      rgba(22,163,109,.09);
+
+  transform:
+    rotate(-7deg);
+}
+
+
+/* Carte / caisse */
+.auth-card:has(
+  .tabs button[data-auth="register"].active
+)::after {
+
+  width: 150px;
+  height: 105px;
+
+  right: 8px;
+  top: 175px;
+
+  border-radius: 22px;
+
+  border:
+    1px solid
+    rgba(22,163,109,.22);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.72),
+      rgba(235,248,242,.40)
+    );
+
+  box-shadow:
+    0 18px 38px
+      rgba(10,60,40,.10),
+    inset 0 1px 0
+      rgba(255,255,255,.75);
+
+  transform:
+    rotate(-7deg);
+}
+
+
+/* =========================================================
+   DÉTAILS GRAPHIQUES INSCRIPTION
+   ========================================================= */
+
+.auth-card:has(
+  .tabs button[data-auth="register"].active
+) .auth-intro::after {
+
+  content: "";
+
+  position: absolute;
+
+  width: 105px;
+  height: 52px;
+
+  right: 15px;
+  top: 96px;
+
+  border-bottom:
+    3px solid
+    rgba(22,163,109,.55);
+
+  border-radius:
+    0 0 70% 70%;
+
+  transform:
+    rotate(-12deg);
+
+  opacity: .8;
+}
+
+
+/* =========================================================
+   PETITS INDICATEURS — COMMERCE
+   ========================================================= */
+
+.auth-card:has(
+  .tabs button[data-auth="register"].active
+) .auth-intro::before {
+
+  content: "▴  +32%";
+
+  position: absolute;
+
+  right: 22px;
+  top: 58px;
+
+  padding: 7px 11px;
+
+  border-radius: 12px;
+
+  background:
+    rgba(22,163,109,.10);
+
+  border:
+    1px solid
+    rgba(22,163,109,.14);
+
+  color:
+    #087a4d;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: .02em;
+
+  box-shadow:
+    0 8px 20px
+    rgba(22,163,109,.08);
+
+  transform:
+    rotate(3deg);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .auth-card::before {
+    width: 190px;
+    height: 190px;
+
+    right: -95px;
+    top: 125px;
+  }
+
+  .auth-card::after {
+    width: 125px;
+    height: 170px;
+
+    right: -48px;
+    top: 145px;
+  }
+
+  .auth-card:has(
+    .tabs button[data-auth="register"].active
+  )::before {
+
+    width: 205px;
+    height: 165px;
+
+    right: -70px;
+    top: 145px;
+  }
+
+  .auth-card:has(
+    .tabs button[data-auth="register"].active
+  )::after {
+
+    width: 112px;
+    height: 82px;
+
+    right: 2px;
+    top: 190px;
+  }
+
+  .auth-card:has(
+    .tabs button[data-auth="register"].active
+  ) .auth-intro::before {
+
+    right: 12px;
+    top: 55px;
+
+    font-size: 9px;
+  }
+
+}
+
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+@media (prefers-color-scheme: dark) {
+
+  .auth-card:has(
+    .tabs button[data-auth="login"].active
+  )::before {
+
+    background:
+      linear-gradient(
+        145deg,
+        rgba(39,201,139,.17),
+        rgba(39,201,139,.025)
+      );
+  }
+
+  .auth-card:has(
+    .tabs button[data-auth="register"].active
+  )::before {
+
+    background:
+      linear-gradient(
+        145deg,
+        rgba(39,201,139,.18),
+        rgba(39,201,139,.025)
+      );
+  }
+
+  .auth-card:has(
+    .tabs button[data-auth="register"].active
+  )::after {
+
+    background:
+      linear-gradient(
+        145deg,
+        rgba(255,255,255,.10),
+        rgba(255,255,255,.025)
+      );
+
+    border-color:
+      rgba(255,255,255,.10);
+  }
+
+  .auth-card:has(
+    .tabs button[data-auth="register"].active
+  ) .auth-intro::before {
+
+    color:
+      #62e0ae;
+
+    background:
+      rgba(39,201,139,.09);
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .auth-card::before,
+  .auth-card::after {
+    transform: none;
+  }
+}
