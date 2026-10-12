@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#0b1020">
   <meta name="description" content="CashFlow — gestion commerciale professionnelle">
   <title>CashFlow</title>
+
   <link rel="stylesheet" href="/assets/style.css">
   <link rel="stylesheet" href="/assets/cashflow-premium.css">
   <link rel="stylesheet" href="/assets/auth-visuals.css">
@@ -25,24 +26,30 @@
 
         <div>
           <strong>CashFlow</strong>
-          <small>Gestion commerciale</small>
+          <small data-i18n="brandSubtitle">Gestion commerciale</small>
         </div>
       </div>
 
       <div class="auth-intro">
         <span class="eyebrow">CASHFLOW</span>
-        <h1>Gérez votre activité simplement.</h1>
-        <p>
+
+        <h1 data-i18n="authTitle">
+          Gérez votre activité simplement.
+        </h1>
+
+        <p data-i18n="authDescription">
           Produits, ventes, stock, clients, dettes et rapports
           dans une seule application.
         </p>
       </div>
 
       <div class="tabs">
+
         <button
           type="button"
           class="active"
           data-auth="login"
+          data-i18n="login"
         >
           Connexion
         </button>
@@ -50,16 +57,19 @@
         <button
           type="button"
           data-auth="register"
+          data-i18n="createAccount"
         >
           Créer un compte
         </button>
+
       </div>
 
       <!-- CONNEXION -->
       <form id="loginForm" class="auth-form">
 
         <label>
-          E-mail
+          <span data-i18n="email">E-mail</span>
+
           <input
             name="email"
             type="email"
@@ -70,7 +80,8 @@
         </label>
 
         <label>
-          Mot de passe
+          <span data-i18n="password">Mot de passe</span>
+
           <input
             name="password"
             type="password"
@@ -83,6 +94,7 @@
         <button
           type="submit"
           class="primary"
+          data-i18n="loginButton"
         >
           Se connecter
         </button>
@@ -96,17 +108,20 @@
       >
 
         <label>
-          Nom complet
+          <span data-i18n="fullName">Nom complet</span>
+
           <input
             name="name"
             autocomplete="name"
             placeholder="Votre nom"
+            data-i18n-placeholder="namePlaceholder"
             required
           >
         </label>
 
         <label>
-          E-mail
+          <span data-i18n="email">E-mail</span>
+
           <input
             name="email"
             type="email"
@@ -117,7 +132,8 @@
         </label>
 
         <label>
-          Téléphone
+          <span data-i18n="phone">Téléphone</span>
+
           <input
             name="phone"
             autocomplete="tel"
@@ -126,21 +142,25 @@
         </label>
 
         <label>
-          Nom de la boutique
+          <span data-i18n="shopName">Nom de la boutique</span>
+
           <input
             name="shop_name"
             placeholder="Ma boutique"
+            data-i18n-placeholder="shopPlaceholder"
           >
         </label>
 
         <label>
-          Mot de passe
+          <span data-i18n="password">Mot de passe</span>
+
           <input
             name="password"
             type="password"
             autocomplete="new-password"
             minlength="8"
             placeholder="Minimum 8 caractères"
+            data-i18n-placeholder="passwordPlaceholder"
             required
           >
         </label>
@@ -148,6 +168,7 @@
         <button
           type="submit"
           class="primary"
+          data-i18n="registerButton"
         >
           Créer mon compte
         </button>
@@ -160,22 +181,31 @@
       ></p>
 
       <div class="support">
-        <span>Besoin d'aide ?</span>
+
+        <span data-i18n="needHelp">
+          Besoin d'aide ?
+        </span>
+
         <a
           id="waAuth"
           href="#"
           target="_blank"
           rel="noopener"
+          data-i18n="whatsapp"
         >
           WhatsApp
         </a>
+
         <span>·</span>
+
         <a
           id="mailAuth"
           href="#"
+          data-i18n="emailSupport"
         >
           E-mail
         </a>
+
       </div>
 
     </div>
@@ -524,6 +554,163 @@
 
 </div>
 
+
+<!--
+  Traduction de l'écran d'authentification.
+  Le reste de l'application est déjà traduit par app.js.
+-->
+<script>
+(() => {
+  const supported = ["fr", "en", "pt", "es"];
+
+  const browserLanguage =
+    (navigator.language || "fr")
+      .slice(0, 2)
+      .toLowerCase();
+
+  const savedLanguage =
+    localStorage.getItem("cashflow-lang");
+
+  const language =
+    savedLanguage ||
+    (
+      supported.includes(browserLanguage)
+        ? browserLanguage
+        : "fr"
+    );
+
+  const translations = {
+    fr: {
+      brandSubtitle: "Gestion commerciale",
+      authTitle: "Gérez votre activité simplement.",
+      authDescription:
+        "Produits, ventes, stock, clients, dettes et rapports dans une seule application.",
+      login: "Connexion",
+      createAccount: "Créer un compte",
+      email: "E-mail",
+      password: "Mot de passe",
+      loginButton: "Se connecter",
+      registerButton: "Créer mon compte",
+      fullName: "Nom complet",
+      phone: "Téléphone",
+      shopName: "Nom de la boutique",
+      needHelp: "Besoin d'aide ?",
+      whatsapp: "WhatsApp",
+      emailSupport: "E-mail",
+      namePlaceholder: "Votre nom",
+      shopPlaceholder: "Ma boutique",
+      passwordPlaceholder: "Minimum 8 caractères"
+    },
+
+    en: {
+      brandSubtitle: "Business management",
+      authTitle: "Manage your business simply.",
+      authDescription:
+        "Products, sales, stock, customers, debts and reports in one application.",
+      login: "Login",
+      createAccount: "Create an account",
+      email: "Email",
+      password: "Password",
+      loginButton: "Sign in",
+      registerButton: "Create my account",
+      fullName: "Full name",
+      phone: "Phone",
+      shopName: "Shop name",
+      needHelp: "Need help?",
+      whatsapp: "WhatsApp",
+      emailSupport: "Email",
+      namePlaceholder: "Your name",
+      shopPlaceholder: "My shop",
+      passwordPlaceholder: "Minimum 8 characters"
+    },
+
+    pt: {
+      brandSubtitle: "Gestão comercial",
+      authTitle: "Gerencie seu negócio com facilidade.",
+      authDescription:
+        "Produtos, vendas, estoque, clientes, dívidas e relatórios em um único aplicativo.",
+      login: "Entrar",
+      createAccount: "Criar uma conta",
+      email: "E-mail",
+      password: "Senha",
+      loginButton: "Entrar",
+      registerButton: "Criar minha conta",
+      fullName: "Nome completo",
+      phone: "Telefone",
+      shopName: "Nome da loja",
+      needHelp: "Precisa de ajuda?",
+      whatsapp: "WhatsApp",
+      emailSupport: "E-mail",
+      namePlaceholder: "Seu nome",
+      shopPlaceholder: "Minha loja",
+      passwordPlaceholder: "Mínimo de 8 caracteres"
+    },
+
+    es: {
+      brandSubtitle: "Gestión comercial",
+      authTitle: "Gestiona tu negocio fácilmente.",
+      authDescription:
+        "Productos, ventas, stock, clientes, deudas e informes en una sola aplicación.",
+      login: "Iniciar sesión",
+      createAccount: "Crear una cuenta",
+      email: "Correo electrónico",
+      password: "Contraseña",
+      loginButton: "Iniciar sesión",
+      registerButton: "Crear mi cuenta",
+      fullName: "Nombre completo",
+      phone: "Teléfono",
+      shopName: "Nombre de la tienda",
+      needHelp: "¿Necesitas ayuda?",
+      whatsapp: "WhatsApp",
+      emailSupport: "Correo",
+      namePlaceholder: "Tu nombre",
+      shopPlaceholder: "Mi tienda",
+      passwordPlaceholder: "Mínimo 8 caracteres"
+    }
+  };
+
+  const dictionary =
+    translations[language] ||
+    translations.fr;
+
+  document.documentElement.lang =
+    language;
+
+  document
+    .querySelectorAll("[data-i18n]")
+    .forEach(element => {
+      const key =
+        element.dataset.i18n;
+
+      if (
+        Object.prototype.hasOwnProperty.call(
+          dictionary,
+          key
+        )
+      ) {
+        element.textContent =
+          dictionary[key];
+      }
+    });
+
+  document
+    .querySelectorAll("[data-i18n-placeholder]")
+    .forEach(element => {
+      const key =
+        element.dataset.i18nPlaceholder;
+
+      if (
+        Object.prototype.hasOwnProperty.call(
+          dictionary,
+          key
+        )
+      ) {
+        element.placeholder =
+          dictionary[key];
+      }
+    });
+})();
+</script>
 
 <script src="/assets/app.js"></script>
 <script src="/assets/receipt.js"></script>
